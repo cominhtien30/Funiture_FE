@@ -1,7 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 const styles = makeStyles(theme => ({
     // sectionBanner
+    "@keyframes myEffect": {
+        "0%": {
+            opacity: 0,
+        },
+        "100%": {
+            opacity: 1,
+        }
+    },
     root: {
+        transition: "2s",
         width: "100%",
         height: "100%",
         zIndex: theme.zIndex.tooltip,
@@ -11,6 +20,9 @@ const styles = makeStyles(theme => ({
         left: 0,
         bottom: 0,
         backgroundColor: "rgb(0,0,0,0.8)",
+        animation: `$myEffect  1s `,
+        // animation
+
         "& .popup-auth": {
             position: "relative",
             margin: "5% auto",
@@ -77,7 +89,8 @@ const styles = makeStyles(theme => ({
                 }
             }
 
-        }
+        },
+
 
     },
     form: {
@@ -110,7 +123,9 @@ const styles = makeStyles(theme => ({
         }
     },
     input: {
-        border: "none"
-    }
+        // border: "none"
+    },
+    // animation
+
 }))
 export default styles

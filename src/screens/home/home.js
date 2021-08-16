@@ -1,5 +1,5 @@
 // @flow 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from "../../component/user/home/carousel/carousel"
 import { Grid, Typography } from '@material-ui/core';
 import styles from './home.style';
@@ -19,6 +19,7 @@ import shoerack from "../../assets/images/category/shoe-rack.png"
 import sofa from "../../assets/images/category/sofa.png"
 import all from "../../assets/images/category/square.png"
 import coffetable from "../../assets/images/category/table.png"
+import Loading from "../../commons/loading"
 
 
 
@@ -27,9 +28,19 @@ import coffetable from "../../assets/images/category/table.png"
 
 const Home = (props) =>
 {
+    const [loading, setLoading] = useState(false);
+    useEffect(() =>
+    {
+        setLoading(true)
+        setTimeout(() =>
+        {
+            setLoading(false)
+        }, 3000)
+    }, [])
 
     const classes = styles();
     return (<>
+        {loading ? <Loading /> : ""}
         <Carousel />
         <section className={`${classes.categorySection} ${classes.section} width-layout category-section`}>
             <Grid container style={{ marginBottom: "40px" }} justifyContent="center">

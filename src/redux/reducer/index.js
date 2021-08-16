@@ -1,4 +1,5 @@
 import cart from "./cart"
+import openSignIn from "./signIn"
 import
 {
     combineReducers
@@ -6,6 +7,7 @@ import
 
 
 const myReducer = combineReducers({
-    cart
+    cart,
+    openSignIn
 })
 export default myReducer;

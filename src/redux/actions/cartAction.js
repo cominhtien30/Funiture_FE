@@ -7,9 +7,3 @@ export const addCart = (product) =>
         product
     }
 }
-export const ReAddCart = () =>
-{
-    return {
-        type: "ReAddCart",
-    }
-}

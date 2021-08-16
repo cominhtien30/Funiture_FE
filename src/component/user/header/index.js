@@ -1,5 +1,5 @@
 // @flow 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "./header.style"
 import
 {
@@ -13,8 +13,13 @@ import logo1 from "../../../assets/images/logo/logo1.png"
 import Navigation from "./navigation/navigation"
 
 
-const Header = () =>
+const Header = ({ handleOpen, requestLogin }) =>
 {
+    useEffect(() =>
+    {
+        requestLogin();
+
+    }, [])
     const classes = styles();
     return (
         <>
@@ -60,15 +65,14 @@ const Header = () =>
                                     </a>
                                     <div className="dropdown-user">
                                         <div className={`${classes.row} lineBottom dropdown-option`}>
-                                            <a href="">Login</a>
+                                            <a onClick={() => handleOpen(true)} href="#javascript()">Login</a>
                                         </div>
                                         <div className={`${classes.row} lineBottom dropdown-option`}>
-                                            <a href="">Sign up</a>
+                                            <a href="#javascript()">Sign up</a>
                                         </div>
                                         {/* <div className={`${classes.row} lineBottom dropdown-option`}>
                                             <a href="">Order</a>
                                         </div> */}
-
                                     </div>
                                 </div>
                                 <div className="item-icon  icon-heart">

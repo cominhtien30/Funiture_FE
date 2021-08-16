@@ -41,7 +41,5 @@ userProducts.propTypes = {
         totalQuantity: PropTypes.number,
         totalPrice: PropTypes.number
     }),
-
-
 };
 export default connect(mapStateToProps, mapDispatchToProps)(userProducts)

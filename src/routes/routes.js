@@ -1,7 +1,7 @@
 import React from "react"
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
-import LayoutUser from "../pages/userLayout"
+import LayoutUser from "../container/layoutUser"
 import LayoutAdmin from "../pages/layoutAdmin"
 // screens
 // user
@@ -12,6 +12,7 @@ import Checkout from '../screens/checkout/checkout'
 import Profile from '../screens/profileUser/profile'
 import Detail from '../screens/detail/detail'
 import WishList from '../screens/wishList/wishList'
+import Error from '../screens/user404'
 // admin
 import Dashboard from "../screens/adminDashboard/adminDashboard";
 import ManageProducts from "../screens/adminProduct/adminProduct"
@@ -33,7 +34,8 @@ export default function Router()
                 { path: 'wishList', element: <WishList /> },
                 { path: 'cart', element: <Cart /> },
                 { path: 'checkout', element: <Checkout /> },
-                { path: 'profile', element: <Profile /> }
+                { path: 'profile', element: <Profile /> },
+                { path: '404', element: <Error /> }
             ]
         },
         {
@@ -47,6 +49,6 @@ export default function Router()
         },
 
         // 404
-        // { path: '*', element: <Navigate to="/404" replace /> }
+        { path: '*', element: <Navigate to="/404" replace /> }
     ]);
 }

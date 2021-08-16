@@ -1,7 +1,10 @@
 // @flow 
 import React from 'react';
 import styles from "./styles"
+import BtnClose from "./btnClose"
+import validationAuth from "../../../utils/validationAuth"
 import logo from "../../../assets/images/products/product.jpg"
+import { useFormik } from 'formik'
 import
 {
     Box,
@@ -18,9 +21,22 @@ import
 
 
 
-const Register = (props) =>
+const Register = ({ handleOpenSignUp, handleSignIn }) =>
 {
     const classes = styles();
+    const formik = useFormik({
+        initialValues: {
+            fullname: '',
+            email: '',
+            password: '',
+            repassword: ''
+        },
+        validationSchema: validationAuth,
+        onSubmit: values =>
+        {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
     return (<div className={`${classes.root}  `}>
 
         <div className="popup-auth">
@@ -30,27 +46,46 @@ const Register = (props) =>
                 </Grid>
                 <Grid item xs={6}>
                     <div className={`${classes.form} auth-form`}>
-                        <div className="close-form align-self-end ">
-                            <a href=""><i class="fa fa-times"></i></a>
-                        </div>
+                        <BtnClose handleSignIn={handleSignIn} />
                         <div className="title-form ">
                             Register
                         </div>
                         <div className="info-form ">
                             Register Your Email ID
                         </div>
-                        <form action="" className={` form`}>
+                        <form action="" className={` form`} onSubmit={formik.handleSubmit}>
                             <FormControl
-                                className={`  d-flex justify-content-center align-items-center `}
+                                className={` d-flex justify-content-center align-items-center`}
                                 color="secondary"
+
                             >
-                                <InputLabel htmlFor="standard-adornment-password">
-                                    Email
-                                </InputLabel>
-                                <Input
+                                <TextField
+                                    error={formik.errors.fullname ? true : false}
+                                    helperText={formik.errors.fullname ? formik.errors.fullname : ""}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.fullname}
                                     classes={{ root: classes.input }}
                                     fullWidth
                                     id="standard-adornment-password"
+                                    placeholder="fullname"
+                                    name="fullname"
+
+                                />
+                            </FormControl>
+                            <FormControl
+                                className={`  d-flex justify-content-center align-items-center  mt-2`}
+                                color="secondary"
+                            >
+                                <TextField
+                                    name="email"
+                                    error={formik.errors.email ? true : false}
+                                    helperText={formik.errors.email ? formik.errors.email : ""}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                    classes={{ root: classes.input }}
+                                    fullWidth
+                                    id="standard-adornment-password"
+                                    placeholder="email"
                                 />
                             </FormControl>
                             <FormControl
@@ -58,27 +93,17 @@ const Register = (props) =>
                                 color="secondary"
 
                             >
-                                <InputLabel htmlFor="standard-adornment-password">
-                                    Password
-                                </InputLabel>
-                                <Input
+                                <TextField
+                                    error={formik.touched.password && formik.errors.password ? true : false}
+                                    helperText={formik.touched.password && formik.errors.password ? formik.errors.password : ""}
+                                    name="password"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.password}
                                     classes={{ root: classes.input }}
                                     fullWidth
                                     id="standard-adornment-password"
-                                // type={values.showPassword ? "text" : "password"}
-                                // value={values.password}
-                                //onChange={handleChange("password")}
-                                // endAdornment={
-                                //     <InputAdornment position="end">
-                                //         <IconButton
-                                //             aria-label="toggle password visibility"
-                                //             onClick={handleClickShowPassword}
-                                //             onMouseDown={handleMouseDownPassword}
-                                //         >
-                                //             {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                //         </IconButton>
-                                //     </InputAdornment>
-                                // }
+                                    placeholder="password"
+                                    type="password"
                                 />
                             </FormControl>
                             <FormControl
@@ -86,40 +111,31 @@ const Register = (props) =>
                                 color="secondary"
 
                             >
-                                <InputLabel htmlFor="standard-adornment-password">
-                                    Password
-                                </InputLabel>
-                                <Input
+                                <TextField
+                                    name="repassword"
+                                    error={formik.errors.repassword ? true : false}
+                                    helperText={formik.errors.repassword ? formik.errors.repassword : ""}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.repassword}
                                     classes={{ root: classes.input }}
                                     fullWidth
                                     id="standard-adornment-password"
-                                // type={values.showPassword ? "text" : "password"}
-                                // value={values.password}
-                                //onChange={handleChange("password")}
-                                // endAdornment={
-                                //     <InputAdornment position="end">
-                                //         <IconButton
-                                //             aria-label="toggle password visibility"
-                                //             onClick={handleClickShowPassword}
-                                //             onMouseDown={handleMouseDownPassword}
-                                //         >
-                                //             {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                //         </IconButton>
-                                //     </InputAdornment>
-                                // }
+                                    placeholder="password"
+                                    type="password"
                                 />
                             </FormControl>
+
                             <FormControl
                                 className={` d-flex justify-content-center align-items-center mt-3`}
                                 color="secondary"
                             >
-                                <Button variant="contained" color="secondary" fullWidth>
+                                <Button type="submit" variant="contained" color="secondary" fullWidth>
                                     Register
                                 </Button>
                             </FormControl>
                         </form>
                         <div className="text-account">
-                            Have an account ?  <a href="">Login now !</a>
+                            Have an account ?  <a href="#javascript()" onClick={() => handleOpenSignUp(false)}>Login now !</a>
                         </div>
                         <div className="row social-auth mt-4">
                             <div className="info-form ">
