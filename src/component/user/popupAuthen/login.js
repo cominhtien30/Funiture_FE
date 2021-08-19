@@ -3,8 +3,9 @@ import React from 'react';
 import styles from "./styles"
 import logo from "../../../assets/images/products/product.jpg"
 import BtnClose from "./btnClose"
-import validationAuth from "../../../utils/validationAuth"
+import { validationLogin } from "../../../utils/validation"
 import { useFormik } from 'formik';
+import BtnFacebook from "./btnFacebook"
 import
 {
     FormControl,
@@ -16,40 +17,38 @@ import
 
 
 
-const Login = ({ handleSignIn, handleOpenSignUp }) =>
+const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin }) =>
 {
+
     const classes = styles();
     // submib and validation
     const formik = useFormik({
         initialValues: {
-
             email: '',
             password: '',
-
         },
-        validationSchema: validationAuth,
+        validationSchema: validationLogin,
         onSubmit: values =>
         {
-            alert(JSON.stringify(values, null, 2));
+            requestLogin(values);
         },
     });
-    console.log(formik.errors, "values")
     return (<div className={`${classes.root}  `}>
         <div className="popup-auth">
             <Grid container >
-                <Grid item xs={6} spacing={3}>
+                <Grid item xs={6} >
                     <img className="logo-left" src={logo} alt="" />
                 </Grid>
                 <Grid item xs={6}>
                     <div className={`${classes.form} auth-form`}>
-                        <BtnClose handleSignIn={handleSignIn} />
+                        <BtnClose handleClearPopup={handleClearPopup} />
                         <div className="title-form ">
                             Login
                         </div>
                         <div className="info-form ">
                             Login Your Email ID
                         </div>
-                        <form action="" className={`form`} onSubmit={formik.handleSubmit}>
+                        <form className={`form`} onSubmit={formik.handleSubmit}>
                             <FormControl
                                 className={`  d-flex justify-content-center align-items-center `}
                                 color="secondary"
@@ -90,9 +89,11 @@ const Login = ({ handleSignIn, handleOpenSignUp }) =>
                                 className={` d-flex justify-content-center align-items-center mt-3`}
                                 color="secondary"
                             >
-                                <Button variant="contained" color="secondary" fullWidth classes={{
-                                    root: classes.btnSubmit
-                                }} type="submit">
+                                <Button
+                                    type="submit"
+                                    color="secondary" fullWidth classes={{
+                                        root: classes.btnSubmit
+                                    }} >
                                     Login
                                 </Button>
                             </FormControl>
@@ -105,12 +106,13 @@ const Login = ({ handleSignIn, handleOpenSignUp }) =>
                                 Social Login
                             </div>
                             <div className="buttons-social d-flex justify-content-between mt-2">
-                                <Button variant="primary" classes={{
+                                {/* <Button classes={{
                                     root: classes.btnFacebook
                                 }}>
                                     Primary
-                                </Button>
-                                <Button variant="contained" classes={{
+                                </Button> */}
+                                <BtnFacebook />
+                                <Button classes={{
                                     root: classes.btnGoogle
                                 }} >
                                     Secondary

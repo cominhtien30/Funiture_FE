@@ -9,26 +9,28 @@ import
 } from "redux-saga/effects";
 const url = "user"
 
-function* login()
+function* loginWorker(action)
 {
     try
     {
-        const callApi = yield api.get(`${url}/get-all-user`)
-        const respone = callApi.data
-        console.log(respone, "respone")
+        const handleLogin = yield api.post(`${url}/login-user`, { ...action.user, account: action.user.email })
+        if (handleLogin)
+        {
+            console.log(handleLogin, "handleLogin")
+            const { message } = handleLogin.data
+            yield put({ type: 'ALERT_CHANGE', open: true, notice: true, patch: "/profile", message })
+        }
+
     } catch (error)
     {
-        console.log(error, "error")
+        const { message } = error.response.data
+        yield error.response.status === 400 && put({ type: 'ALERT_CHANGE', open: true, notice: false, patch: "", message })
     }
-    //yield delay(2000)
-    //console.log({ ...actions.product, quantity: 5 }, "done")
-    // yield put({ type: 'LOAD_CART', payload: { ...actions.product, quantity: 5 } })
-
 }
 
-export default function* watchAuth()
+export default function* authWatcher()
 {
     //action data
-    yield takeEvery('REQUEST_LOGIN', login);
+    yield takeEvery('REQUEST_LOGIN', loginWorker);
 
 }

@@ -3,13 +3,13 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as actions from "../redux/actions/cartAction"
-import Products from "../screens/products/listProduct"
+import ScreenProducts from "../screens/products/listProduct"
 
 function userProducts({ cart, addToCart })
 {
     console.log(cart, "newCart")
     return (
-        <Products
+        <ScreenProducts
             cart={cart}
             addToCart={addToCart}
 

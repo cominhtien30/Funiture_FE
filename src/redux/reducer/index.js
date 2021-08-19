@@ -1,5 +1,6 @@
 import cart from "./cart"
 import openSignIn from "./signIn"
+import alert from "./alter"
 import
 {
     combineReducers
@@ -8,6 +9,7 @@ import
 
 const myReducer = combineReducers({
     cart,
-    openSignIn
+    openSignIn,
+    alert
 })
 export default myReducer;

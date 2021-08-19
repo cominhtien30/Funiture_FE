@@ -10,7 +10,7 @@ import
 } from "redux-saga/effects";
 
 ///action when dispatch CRUD
-function* addCart(actions)
+function* addWorker(actions)
 {
     //yield delay(2000)
     //console.log({ ...actions.product, quantity: 5 }, "done")
@@ -18,7 +18,7 @@ function* addCart(actions)
 
 }
 
-export default function* watchCart()
+export default function* cartWatcher()
 {
 
     //action data

@@ -21,7 +21,8 @@ const styles = makeStyles(theme => ({
         bottom: 0,
         backgroundColor: "rgb(0,0,0,0.8)",
         animation: `$myEffect  1s `,
-        // animation
+        // overflowY: "scroll",
+        overflow: "hidden",
 
         "& .popup-auth": {
             position: "relative",

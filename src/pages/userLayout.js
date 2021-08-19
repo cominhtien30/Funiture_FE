@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import "../App.css"
 // -----
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -6,29 +6,54 @@ import "bootstrap/dist/js/bootstrap.bundle"
 import "font-awesome/css/font-awesome.min.css"
 // --------
 import { Outlet } from 'react-router-dom';
-
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 // conponennt
-import Header from "../container/headerUser"
+import Header from "../component/user/header"
 import Footer from "../component/user/footer/footer"
 import Chat from "../commons/chatComponent/chat"
 import CartFixed from "../component/user/cartFixed"
-import Login from "../component/user/popupAuthen/login"
+import Login from "../container/login"
 import Register from "../component/user/popupAuthen/register"
+import Alert from "../commons/alert"
 // ----global
 import GlobalCss from "../global.styles"
-function App({ openSignIn, handleOpen })
+function App({ openSignIn, handleOpen, openAlert, alertChange })
 {
+
     const [openSignup, setOpenSignup] = useState(false)
-    const handleOpenSignUp = (open) =>
+    // khi openSignIn openSignup thay đổi làm component reRender
+    // thì sẽ kiểm tra xem có popup nào mở không, nếu có thì block scroll
+    useEffect(() =>
     {
+        const body = document.querySelector('body');
+        openSignIn || openSignup ? disableBodyScroll(body) :
+            (!openSignIn && !openSignup) ? enableBodyScroll(body) : disableBodyScroll(body)
+    }, [openSignIn, openSignup]);
+
+
+    // viết useCallback để khi không dùng hàm thì sẽ không Created
+    // open popup register
+    const handleOpenSignUp = useCallback((open) =>
+    {
+
         setOpenSignup(open)
-    }
+
+    }, [openSignup])
+    // close all poppup
+    const handleClearPopup = useCallback(() =>
+    {
+
+        setOpenSignup(false)
+        handleOpen(false)
+
+    }, [openSignIn])
+    // reder popup
     const formAuth = () =>
     {
         return openSignIn
             ? openSignup
-                ? <Register handleSignIn={handleOpen} handleOpenSignUp={handleOpenSignUp} />
-                : <Login handleSignIn={handleOpen} handleOpenSignUp={handleOpenSignUp} />
+                ? <Register handleClearPopup={handleClearPopup} handleOpenSignUp={handleOpenSignUp} />
+                : <Login handleClearPopup={handleClearPopup} handleOpenSignUp={handleOpenSignUp} />
             : ""
     }
 
@@ -40,17 +65,23 @@ function App({ openSignIn, handleOpen })
                 {/* global style */}
                 <GlobalCss />
                 {/* -------------------------- */}
-                <Header />
+                <Header handleOpen={handleOpen} />
                 <div className="container-fluid">
                     <Outlet />
                 </div>
+                {/* popup auth */}
                 {formAuth()}
-                {/* <Register /> */}
+                {/* menu cart */}
                 <CartFixed />
+                {/* icon chat */}
+                {/* alert */}
+                {openAlert.open && <Alert openAlert={openAlert} handleOpen={handleOpen} alertChange={alertChange} />}
                 <Chat />
                 <Footer />
                 {/* layout user */}
+
             </div>
+
         </React.Fragment>
     );
 }

@@ -13,13 +13,8 @@ import logo1 from "../../../assets/images/logo/logo1.png"
 import Navigation from "./navigation/navigation"
 
 
-const Header = ({ handleOpen, requestLogin }) =>
+const Header = ({ handleOpen }) =>
 {
-    useEffect(() =>
-    {
-        requestLogin();
-
-    }, [])
     const classes = styles();
     return (
         <>
@@ -87,7 +82,6 @@ const Header = ({ handleOpen, requestLogin }) =>
                 </section>
                 {/* end top_bars */}
                 {/* navigation-header */}
-
             </header>
             <Navigation classes={classes} />
         </>

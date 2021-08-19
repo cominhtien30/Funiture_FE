@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from "./styles"
 import BtnClose from "./btnClose"
-import validationAuth from "../../../utils/validationAuth"
+import { validationRegister } from "../../../utils/validation"
 import logo from "../../../assets/images/products/product.jpg"
 import { useFormik } from 'formik'
 import
@@ -19,9 +19,7 @@ import
 } from '@material-ui/core';
 
 
-
-
-const Register = ({ handleOpenSignUp, handleSignIn }) =>
+const Register = ({ handleOpenSignUp, handleClearPopup }) =>
 {
     const classes = styles();
     const formik = useFormik({
@@ -31,7 +29,7 @@ const Register = ({ handleOpenSignUp, handleSignIn }) =>
             password: '',
             repassword: ''
         },
-        validationSchema: validationAuth,
+        validationSchema: validationRegister,
         onSubmit: values =>
         {
             alert(JSON.stringify(values, null, 2));
@@ -46,7 +44,7 @@ const Register = ({ handleOpenSignUp, handleSignIn }) =>
                 </Grid>
                 <Grid item xs={6}>
                     <div className={`${classes.form} auth-form`}>
-                        <BtnClose handleSignIn={handleSignIn} />
+                        <BtnClose handleClearPopup={handleClearPopup} />
                         <div className="title-form ">
                             Register
                         </div>

@@ -1,5 +1,6 @@
 const path = require('path');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin"); //plugin nay hỗ trợ chuyển file tĩnh vào dist
+const Dotenv = require('dotenv-webpack'); // sữ dụng .env bằng webpack
 
 module.exports = {
     mode: "development",
@@ -7,11 +8,11 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: "/"
+        publicPath: "/" // tài nguyên mặc định
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist/'),
-        contentBasePublicPath: "/",
+        contentBasePublicPath: "/", // theo dõi mặc định
         open: true,
         port: 9000,
         historyApiFallback: true,
@@ -49,5 +50,6 @@ module.exports = {
                 { from: 'src/assets/images/logo', to: 'logo' },
             ],
         }),
+        new Dotenv()
     ],
 };

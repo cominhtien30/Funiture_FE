@@ -40,7 +40,7 @@ const Home = (props) =>
 
     const classes = styles();
     return (<>
-        {loading ? <Loading /> : ""}
+        {/* {loading ? <Loading /> : ""} */}
         <Carousel />
         <section className={`${classes.categorySection} ${classes.section} width-layout category-section`}>
             <Grid container style={{ marginBottom: "40px" }} justifyContent="center">

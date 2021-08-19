@@ -35,7 +35,7 @@ export default function Router()
                 { path: 'cart', element: <Cart /> },
                 { path: 'checkout', element: <Checkout /> },
                 { path: 'profile', element: <Profile /> },
-                { path: '404', element: <Error /> }
+
             ]
         },
         {
@@ -49,6 +49,7 @@ export default function Router()
         },
 
         // 404
+        { path: '404', element: <Error /> },
         { path: '*', element: <Navigate to="/404" replace /> }
     ]);
 }
