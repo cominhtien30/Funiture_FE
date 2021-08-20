@@ -14,7 +14,7 @@ import
     Button
 } from '@material-ui/core';
 
-const btnFacebook = () =>
+const btnFacebook = ({ requestLoginSocial }) =>
 {
     const classes = styles();
     const componentClicked = () =>
@@ -23,7 +23,10 @@ const btnFacebook = () =>
     }
     const responseFacebook = (res) =>
     {
-        console.log(res, "click")
+        //console.log(res, "click")
+        const { name, email } = res
+        const image = res.picture.data.url
+        requestLoginSocial({ fullname: name, account: email, password: "", image, type: "user" })
     }
 
     return <FacebookLogin

@@ -17,7 +17,7 @@ import
 
 
 
-const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin }) =>
+const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin, requestLoginSocial }) =>
 {
 
     const classes = styles();
@@ -33,6 +33,7 @@ const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin }) =>
             requestLogin(values);
         },
     });
+
     return (<div className={`${classes.root}  `}>
         <div className="popup-auth">
             <Grid container >
@@ -55,15 +56,15 @@ const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin }) =>
                             >
 
                                 <TextField
-                                    error={formik.errors.email ? true : false}
-                                    helperText={formik.errors.email ? formik.errors.email : ""}
+                                    error={formik.touched.email && formik.errors.email ? true : false}
+                                    helperText={formik.touched.email && formik.errors.email ? formik.errors.email : ""}
                                     name="email"
                                     onChange={formik.handleChange}
                                     value={formik.values.email}
                                     classes={{ root: classes.input }}
                                     fullWidth
                                     id="standard-adornment-password"
-                                    placeholder="email"
+                                    placeholder="account"
                                 />
                             </FormControl>
                             <FormControl
@@ -111,7 +112,7 @@ const Login = ({ handleClearPopup, handleOpenSignUp, requestLogin }) =>
                                 }}>
                                     Primary
                                 </Button> */}
-                                <BtnFacebook />
+                                <BtnFacebook requestLoginSocial={requestLoginSocial} />
                                 <Button classes={{
                                     root: classes.btnGoogle
                                 }} >

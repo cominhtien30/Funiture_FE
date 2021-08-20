@@ -7,6 +7,13 @@ export const requestLogin = (user) =>
         user
     }
 }
+export const requestRegister = (newUser) =>
+{
+    return {
+        type: types.REQUEST_REGISTER,
+        newUser
+    }
+}
 export const requestLoginSocial = (user) =>
 {
     return {

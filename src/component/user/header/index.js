@@ -13,7 +13,7 @@ import logo1 from "../../../assets/images/logo/logo1.png"
 import Navigation from "./navigation/navigation"
 
 
-const Header = ({ handleOpen }) =>
+const Header = ({ handleOpenSignIn }) =>
 {
     const classes = styles();
     return (
@@ -60,7 +60,7 @@ const Header = ({ handleOpen }) =>
                                     </a>
                                     <div className="dropdown-user">
                                         <div className={`${classes.row} lineBottom dropdown-option`}>
-                                            <a onClick={() => handleOpen(true)} href="#javascript()">Login</a>
+                                            <a onClick={() => handleOpenSignIn(true)} href="#javascript()">Login</a>
                                         </div>
                                         <div className={`${classes.row} lineBottom dropdown-option`}>
                                             <a href="#javascript()">Sign up</a>

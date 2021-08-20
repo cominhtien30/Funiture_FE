@@ -4,6 +4,7 @@ import styles from "./styles"
 import BtnClose from "./btnClose"
 import { validationRegister } from "../../../utils/validation"
 import logo from "../../../assets/images/products/product.jpg"
+import BtnFacebook from "./btnFacebook"
 import { useFormik } from 'formik'
 import
 {
@@ -19,7 +20,7 @@ import
 } from '@material-ui/core';
 
 
-const Register = ({ handleOpenSignUp, handleClearPopup }) =>
+const Register = ({ handleClearPopup, handleOpenSignUp, requestRegister, requestLoginSocial }) =>
 {
     const classes = styles();
     const formik = useFormik({
@@ -32,7 +33,8 @@ const Register = ({ handleOpenSignUp, handleClearPopup }) =>
         validationSchema: validationRegister,
         onSubmit: values =>
         {
-            alert(JSON.stringify(values, null, 2));
+            //alert(JSON.stringify(values, null, 2));
+            requestRegister(values)
         },
     });
     return (<div className={`${classes.root}  `}>
@@ -58,8 +60,8 @@ const Register = ({ handleOpenSignUp, handleClearPopup }) =>
 
                             >
                                 <TextField
-                                    error={formik.errors.fullname ? true : false}
-                                    helperText={formik.errors.fullname ? formik.errors.fullname : ""}
+                                    error={formik.touched.fullname && formik.errors.fullname ? true : false}
+                                    helperText={formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ""}
                                     onChange={formik.handleChange}
                                     value={formik.values.fullname}
                                     classes={{ root: classes.input }}
@@ -76,14 +78,14 @@ const Register = ({ handleOpenSignUp, handleClearPopup }) =>
                             >
                                 <TextField
                                     name="email"
-                                    error={formik.errors.email ? true : false}
-                                    helperText={formik.errors.email ? formik.errors.email : ""}
+                                    error={formik.touched.email && formik.errors.email ? true : false}
+                                    helperText={formik.touched.email && formik.errors.email ? formik.errors.email : ""}
                                     onChange={formik.handleChange}
                                     value={formik.values.email}
                                     classes={{ root: classes.input }}
                                     fullWidth
                                     id="standard-adornment-password"
-                                    placeholder="email"
+                                    placeholder="account"
                                 />
                             </FormControl>
                             <FormControl
@@ -111,8 +113,8 @@ const Register = ({ handleOpenSignUp, handleClearPopup }) =>
                             >
                                 <TextField
                                     name="repassword"
-                                    error={formik.errors.repassword ? true : false}
-                                    helperText={formik.errors.repassword ? formik.errors.repassword : ""}
+                                    error={formik.touched.repassword && formik.errors.repassword ? true : false}
+                                    helperText={formik.touched.repassword && formik.errors.repassword ? formik.errors.repassword : ""}
                                     onChange={formik.handleChange}
                                     value={formik.values.repassword}
                                     classes={{ root: classes.input }}
@@ -140,11 +142,7 @@ const Register = ({ handleOpenSignUp, handleClearPopup }) =>
                                 Social Login
                             </div>
                             <div className="buttons-social d-flex justify-content-between mt-2">
-                                <Button variant="primary" classes={{
-                                    root: classes.btnFacebook
-                                }}>
-                                    Primary
-                                </Button>
+                                <BtnFacebook requestLoginSocial={requestLoginSocial} />
                                 <Button variant="contained" classes={{
                                     root: classes.btnGoogle
                                 }}>

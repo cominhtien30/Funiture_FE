@@ -5,13 +5,13 @@ import { connect } from "react-redux";
 import LayoutUser from '../pages/userLayout';
 import * as actionSign from "../redux/actions/signAction"
 import * as actionAlert from "../redux/actions/alertAction"
-export const layoutUserContainer = ({ openSignIn, handleOpen, openAlert, alertChange }) =>
+export const layoutUserContainer = ({ openSignIn, handleOpenSignIn, openAlert, alertChange }) =>
 {
     //console.log(handleOpen(), "handleOpen")
     return (
         <LayoutUser
             openSignIn={openSignIn}
-            handleOpen={handleOpen}
+            handleOpenSignIn={handleOpenSignIn}
             openAlert={openAlert}
             alertChange={alertChange}
         />
@@ -35,7 +35,7 @@ layoutUserContainer.propTypes = {
 };
 const mapDispatchToProps = {
     //  add Cart
-    handleOpen: (open) => actionSign.openSignIn(open),
+    handleOpenSignIn: (open) => actionSign.openSignIn(open),
     // Alert change
     alertChange: (payload) => actionAlert.alertChange(payload),
 

@@ -13,14 +13,14 @@ import Footer from "../component/user/footer/footer"
 import Chat from "../commons/chatComponent/chat"
 import CartFixed from "../component/user/cartFixed"
 import Login from "../container/login"
-import Register from "../component/user/popupAuthen/register"
+import Register from "../container/register"
 import Alert from "../commons/alert"
 // ----global
 import GlobalCss from "../global.styles"
-function App({ openSignIn, handleOpen, openAlert, alertChange })
+function App({ openSignIn, handleOpenSignIn, openAlert, alertChange })
 {
 
-    const [openSignup, setOpenSignup] = useState(false)
+    const [openSignup, setOpenSignUp] = useState(false)
     // khi openSignIn openSignup thay đổi làm component reRender
     // thì sẽ kiểm tra xem có popup nào mở không, nếu có thì block scroll
     useEffect(() =>
@@ -36,15 +36,15 @@ function App({ openSignIn, handleOpen, openAlert, alertChange })
     const handleOpenSignUp = useCallback((open) =>
     {
 
-        setOpenSignup(open)
+        setOpenSignUp(open)
 
     }, [openSignup])
     // close all poppup
     const handleClearPopup = useCallback(() =>
     {
 
-        setOpenSignup(false)
-        handleOpen(false)
+        setOpenSignUp(false)
+        handleOpenSignIn(false)
 
     }, [openSignIn])
     // reder popup
@@ -65,7 +65,7 @@ function App({ openSignIn, handleOpen, openAlert, alertChange })
                 {/* global style */}
                 <GlobalCss />
                 {/* -------------------------- */}
-                <Header handleOpen={handleOpen} />
+                <Header handleOpenSignIn={handleOpenSignIn} />
                 <div className="container-fluid">
                     <Outlet />
                 </div>
@@ -75,7 +75,12 @@ function App({ openSignIn, handleOpen, openAlert, alertChange })
                 <CartFixed />
                 {/* icon chat */}
                 {/* alert */}
-                {openAlert.open && <Alert openAlert={openAlert} handleOpen={handleOpen} alertChange={alertChange} />}
+                {openAlert.open && <Alert
+                    openAlert={openAlert}
+                    handleOpenSignIn={handleOpenSignIn}
+                    alertChange={alertChange}
+                    handleOpenSignUp={handleOpenSignUp}
+                />}
                 <Chat />
                 <Footer />
                 {/* layout user */}

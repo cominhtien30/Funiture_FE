@@ -17,7 +17,7 @@ import
 
 
 
-const Login = ({ openAlert, handleOpen, alertChange }) =>
+const Login = ({ openAlert, handleOpenSignIn, handleOpenSignUp, alertChange }) =>
 {
     let navigate = useNavigate();
     console.log(openAlert, "openAlert")
@@ -28,15 +28,19 @@ const Login = ({ openAlert, handleOpen, alertChange }) =>
 
         setTimeout(() =>
         {
-            if (openAlert.notice)
+            if (openAlert.notice) //Dang nhap thanh cong thì đóng popupAuth và navigate
             {
-                handleOpen(false)
-                alertChange({ ...openAlert, open: false })
+                handleOpenSignIn(false)
+
                 navigate('/profile');
-            } else
-            {
-                alertChange({ ...openAlert, open: false })
             }
+            if (openAlert.notice && openAlert.patch === "") //register thanh cong đóng -> open popupLogin
+            {
+                handleOpenSignUp(false)
+                handleOpenSignIn(true)
+            }
+            // nếu đăng nhập hoac đăng ký thất bại thì chỉ cần đóng alter 
+            alertChange({ ...openAlert, open: false })
         }, 1000)
 
     }
