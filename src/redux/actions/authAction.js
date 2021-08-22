@@ -1,23 +1,20 @@
-import * as types from "../../constants"
+import * as types from '../../constants'
 
-export const requestLogin = (user) =>
-{
+export const requestLogin = (user) => {
     return {
         type: types.REQUEST_LOGIN,
-        user
+        user,
     }
 }
-export const requestRegister = (newUser) =>
-{
+export const requestRegister = (newUser) => {
     return {
         type: types.REQUEST_REGISTER,
-        newUser
+        newUser,
     }
 }
-export const requestLoginSocial = (user) =>
-{
+export const requestLoginSocial = (user) => {
     return {
         type: types.REQUEST_LOGIN_SOCIAL,
-        user
+        user,
     }
 }

@@ -1,33 +1,14 @@
+import React from 'react'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import { MainListItems } from './listItems'
 
-
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { MainListItems } from './listItems';
-
-
-function Copyright()
-{
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -70,18 +51,20 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
-}));
+}))
 
-export default function Navigation(props)
-{
-    const classes = useStyles();
+export default function Navigation(props) {
+    const classes = useStyles()
     const { open, handleDrawerClose } = props
 
     return (
         <Drawer
             variant="permanent"
             classes={{
-                paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                paper: clsx(
+                    classes.drawerPaper,
+                    !open && classes.drawerPaperClose,
+                ),
             }}
             open={open}
         >
@@ -91,10 +74,11 @@ export default function Navigation(props)
                 </IconButton>
             </div>
             <Divider />
-            <List><MainListItems /></List>
+            <List>
+                <MainListItems />
+            </List>
             {/* <Divider />
             <List>{secondaryListItems}</List> */}
         </Drawer>
-
-    );
+    )
 }

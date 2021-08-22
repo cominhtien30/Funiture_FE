@@ -1,15 +1,11 @@
-import cart from "./cart"
-import openSignIn from "./signIn"
-import alert from "./alter"
-import
-{
-    combineReducers
-} from "redux";
-
+import cart from './cart'
+import openSignIn from './signIn'
+import alert from './alter'
+import { combineReducers } from 'redux'
 
 const myReducer = combineReducers({
     cart,
     openSignIn,
-    alert
+    alert,
 })
-export default myReducer;
+export default myReducer

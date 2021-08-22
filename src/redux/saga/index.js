@@ -1,13 +1,7 @@
-import
-{
-    all
-} from "redux-saga/effects";
-import watchCart from "./sagaCart";
-import watchAuth from "./sagaAuthen";
+import { all } from 'redux-saga/effects'
+import watchCart from './sagaCart'
+import watchAuth from './sagaAuthen'
 
-export default function* rootSaga()
-{
-    yield all([watchCart(), watchAuth()]);
-
+export default function* rootSaga() {
+    yield all([watchCart(), watchAuth()])
 }
-

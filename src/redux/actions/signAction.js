@@ -1,9 +1,8 @@
-import * as types from "../../constants"
+import * as types from '../../constants'
 
-export const openSignIn = (open) =>
-{
+export const openSignIn = (open) => {
     return {
         type: types.CHANGE_OPEN,
-        open
+        open,
     }
 }
