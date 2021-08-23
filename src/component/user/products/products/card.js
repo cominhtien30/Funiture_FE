@@ -1,20 +1,24 @@
-// @flow 
-import React from 'react';
-import styles from './product.style';
-import { withTheme } from '@material-ui/core/styles';
-import proImg from "../../../../assets/images/products/product.jpg"
-import
-{
-    Box,
-    FormControl,
-    Select,
-    InputLabel,
-    InputBase,
-    Grid,
-    TextField,
-    Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography
-} from '@material-ui/core';
-
+// @flow
+import React from 'react'
+import styles from './product.style'
+import { withTheme } from '@material-ui/core/styles'
+import proImg from '../../../../assets/images/products/product.jpg'
+import {
+    // Box,
+    // FormControl,
+    // Select,
+    // InputLabel,
+    // InputBase,
+    // Grid,
+    // TextField,
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
+} from '@material-ui/core'
 
 
 const Products = ({ price,nameProduct,description,pictures }) =>
@@ -54,3 +58,4 @@ const Products = ({ price,nameProduct,description,pictures }) =>
     </>);
 };
 export default withTheme(Products)
+

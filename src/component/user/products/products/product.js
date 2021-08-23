@@ -1,18 +1,16 @@
-// @flow 
-import React,{useEffect} from 'react';
-import styles from './product.style';
-import { withTheme } from '@material-ui/core/styles';
-import CardProduct from "./card"
-import
-{
-    Box,
-    FormControl,
-    Select,
-    InputLabel,
-    InputBase,
-    Grid,
 
-} from '@material-ui/core';
+// @flow
+import React from 'react'
+import { withTheme } from '@material-ui/core/styles'
+import CardProduct from './card'
+import {
+    // Box,
+    // FormControl,
+    // Select,
+    // InputLabel,
+    // InputBase,
+    Grid,
+} from '@material-ui/core'
 
 
 

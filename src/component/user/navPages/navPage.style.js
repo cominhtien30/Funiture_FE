@@ -1,26 +1,25 @@
-
-import { makeStyles } from '@material-ui/core/styles';
-const styles = makeStyles(theme => ({
+import { makeStyles } from '@material-ui/core/styles'
+const styles = makeStyles((theme) => ({
     // navPage - stiky
     navPage: {
-        "& .item-patch": {
-            fontSize: "13px",
-            whiteSpace: "nowrap",
-            color: theme.palette.primary.bolid
+        '& .item-patch': {
+            fontSize: '13px',
+            whiteSpace: 'nowrap',
+            color: theme.palette.primary.bolid,
         },
-        "& .item-patch + .item-patch": {
-            paddingLeft: "10px",
-            "&:before": {
+        '& .item-patch + .item-patch': {
+            paddingLeft: '10px',
+            '&:before': {
                 content: '">"',
-                marginRight: "10px",
-                color: theme.palette.primary.bolid
-            }
+                marginRight: '10px',
+                color: theme.palette.primary.bolid,
+            },
         },
-        "& .active": {
+        '& .active': {
             color: theme.palette.primary.title,
-            fontWeight: 500
-        }
+            fontWeight: 500,
+        },
         // endNavPage
-    }
+    },
 }))
 export default styles
