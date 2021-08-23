@@ -1,5 +1,4 @@
-
-import axios from 'axios';
+import api from '../../utils/api'
 import
 {
     delay,
@@ -15,13 +14,17 @@ const url = 'product';
 function* getProductsWorker(action){
      console.log("getProducts","test")
     try{
-        
-        const getProducts = yield axios.get(`https://localhost:4000/api/product/get-all-products`);
+
+        const getProducts = yield api.get(`${url}/get-all-products`);
         if (getProducts)
         {
-           // const { products } = getProducts
-            console.log(getProducts,"test")
-            // yield put({ type: 'GET_PRODUCTS', products})
+            const { data } = getProducts
+            yield put({
+                type: 'GET_PRODUCTS',
+                products:data
+            })
+      
+
         }
     }
     catch(error){

@@ -17,10 +17,9 @@ import
 
 
 
-const Products = ({ addToCart }) =>
+const Products = ({ price,nameProduct,description,pictures }) =>
 {
     const classes = styles();
-    const { renderProducts } = props;
     return (<>
         <Card>
             <CardActionArea>
@@ -28,15 +27,15 @@ const Products = ({ addToCart }) =>
                     component="img"
                     alt="Contemplative Reptile"
                     height="140"
-                    image={proImg}
+                    image={pictures}
                     title="Contemplative Reptile"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="subtitle1" noWrap component="h2">
-                        {renderProducts.nameProduct}
+                        {nameProduct}
                     </Typography>
                     <Typography align="justify" variant="body2" color="textSecondary" component="p">
-                        {renderProducts.description}
+                        {description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -44,7 +43,7 @@ const Products = ({ addToCart }) =>
                 root: classes.CardActions
             }}>
                 <Typography variant="button" noWrap={true} color="primary" >
-                   {}
+                   {price}
                 </Typography>
                 <Button onClick={() => addToCart({ id: 1, name: "Funiture", quantity: 1, price: 20, image: "a", color: "#fff" })}>
                     Add To Cart

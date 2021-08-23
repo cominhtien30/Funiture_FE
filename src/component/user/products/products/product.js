@@ -18,25 +18,28 @@ import
 
 const Products = ({ products, requestListProducts }) =>
 {
+
     useEffect(() => {
         requestListProducts();
     }, [requestListProducts])
-    console.log(products.getListProduct,"products1")
+   
+    console.log(products.getListProduct,"getListProduct")
     const classes = styles()
     return (<>
         <div className={`list-product`}>
             <div className={`row`}>
                 <Grid container spacing={2}>
-                    {/* {Array(6).fill(0).map((item, index) =>
+                     {products.getListProduct.map((item) =>
                     {
-                        return <Grid item xs={4} key={index}>
-                            <CardProduct  price={item.price}  />
+                        return <Grid item xs={4}>
+                            <CardProduct  price={item.price}  nameProduct={item.nameProduct} description={item.description} pictures={item.pictures}/>
                         </Grid>
-                    })} */}
+                    })} 
                 </Grid>
             </div>
         </div>
     </>);
 };
+
 
 export default withTheme(Products)

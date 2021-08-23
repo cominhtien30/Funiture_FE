@@ -12,7 +12,7 @@ function userProducts({ products, requestListProducts })
         <Products
             products={products}
             requestListProducts={requestListProducts}
-
+        
         />
     );
 };
@@ -21,9 +21,8 @@ const mapStateToProps = state => ({
 });
 //DISPATCH
 const mapDispatchToProps = {
-    //  add Cart
+    //  get products
     requestListProducts:  productsAction.requestProducts,
-    // get products
 };
 //check type props
 userProducts.propTypes = {
@@ -32,14 +31,12 @@ userProducts.propTypes = {
             PropTypes.shape({
                 id: PropTypes.number,
                 nameProduct: PropTypes.string,
-                description: PropTypes.number,
+                description: PropTypes.string,
                 price: PropTypes.number,
                 pictures: PropTypes.string,
                 color: PropTypes.string
             })
         ),
     }),
-
-
 };
 export default connect(mapStateToProps, mapDispatchToProps)(userProducts)
