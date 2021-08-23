@@ -1,3 +1,4 @@
+
 // @flow
 import React from 'react'
 import { withTheme } from '@material-ui/core/styles'
@@ -11,27 +12,32 @@ import {
     Grid,
 } from '@material-ui/core'
 
-const Products = ({ addToCart }) => {
-    return (
-        <>
-            <div className={`list-product`}>
-                <div className={`row`}>
-                    <Grid container spacing={2}>
-                        {Array(6)
-                            .fill(0)
-                            .map((item, index) => {
-                                return (
-                                    <Grid item xs={4} key={index}>
-                                        <CardProduct
-                                            addToCart={addToCart}
-                                        />
-                                    </Grid>
-                                )
-                            })}
-                    </Grid>
-                </div>
+
+
+const Products = ({ products, requestListProducts }) =>
+{
+
+    useEffect(() => {
+        requestListProducts();
+    }, [requestListProducts])
+   
+    console.log(products.getListProduct,"getListProduct")
+    const classes = styles()
+    return (<>
+        <div className={`list-product`}>
+            <div className={`row`}>
+                <Grid container spacing={2}>
+                     {products.getListProduct.map((item) =>
+                    {
+                        return <Grid item xs={4}>
+                            <CardProduct  price={item.price}  nameProduct={item.nameProduct} description={item.description} pictures={item.pictures}/>
+                        </Grid>
+                    })} 
+                </Grid>
             </div>
-        </>
-    )
-}
+        </div>
+    </>);
+};
+
+
 export default withTheme(Products)

@@ -20,69 +20,42 @@ import {
     Typography,
 } from '@material-ui/core'
 
-const Products = ({ addToCart }) => {
-    const classes = styles()
-    return (
-        <>
-            <Card>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt="Contemplative Reptile"
-                        height="140"
-                        image={proImg}
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography
-                            gutterBottom
-                            variant="subtitle1"
-                            noWrap
-                            component="h2"
-                        >
-                            Fabric Sofa Sets
-                        </Typography>
-                        <Typography
-                            align="justify"
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                        >
-                            Lizards are a widespread group of squamate
-                            reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions
-                    classes={{
-                        root: classes.CardActions,
-                    }}
-                >
-                    <Typography
-                        variant="button"
-                        noWrap={true}
-                        color="primary"
-                    >
-                        400.$
+
+const Products = ({ price,nameProduct,description,pictures }) =>
+{
+    const classes = styles();
+    return (<>
+        <Card>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    alt="Contemplative Reptile"
+                    height="140"
+                    image={pictures}
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="subtitle1" noWrap component="h2">
+                        {nameProduct}
                     </Typography>
-                    <Button
-                        onClick={() =>
-                            addToCart({
-                                id: 1,
-                                name: 'Funiture',
-                                quantity: 1,
-                                price: 20,
-                                image: 'a',
-                                color: '#fff',
-                            })
-                        }
-                    >
-                        Add To Cart
-                    </Button>
-                </CardActions>
-            </Card>
-        </>
-    )
-}
+                    <Typography align="justify" variant="body2" color="textSecondary" component="p">
+                        {description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions classes={{
+                root: classes.CardActions
+            }}>
+                <Typography variant="button" noWrap={true} color="primary" >
+                   {price}
+                </Typography>
+                <Button onClick={() => addToCart({ id: 1, name: "Funiture", quantity: 1, price: 20, image: "a", color: "#fff" })}>
+                    Add To Cart
+                </Button>
+            </CardActions>
+        </Card>
+
+    </>);
+};
 export default withTheme(Products)
+

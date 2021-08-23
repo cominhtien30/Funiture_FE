@@ -26,6 +26,26 @@ const listProduct = ({ addToCart }) => {
                         <Products addToCart={addToCart} />
                     </Grid>
 
+
+
+
+const listProduct = ({ products, requestListProducts }) =>
+{
+
+    return (<>
+        <div className="container-product width-layout mt-4 mb-4">
+            <NavPages />
+            <div className="d-flex justify-content-center mb-4">
+                <Typography variant="caption">
+                    Biến Name Category để đây
+                </Typography>
+            </div>
+            <Grid container >
+                <Grid xs={3} item>
+                    <Filter />
+                </Grid>
+                <Grid xs={9} item>
+                    <Products products={products} requestListProducts={requestListProducts} />
                     <Grid container justifyContent="center">
                         <Pagination />
                     </Grid>

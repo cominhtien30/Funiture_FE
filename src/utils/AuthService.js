@@ -4,6 +4,7 @@ class AuthService {
         this.isLogin = this.isLogin.bind(this)
         this.isAdmin = this.isAdmin.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
+
         this.getAccount = this.getAccount.bind(this)
     }
     isLogin() {

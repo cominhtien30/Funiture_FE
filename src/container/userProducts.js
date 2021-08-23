@@ -1,40 +1,42 @@
 // @flow
-import * as React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import * as actions from '../redux/actions/cartAction'
-import ScreenProducts from '../screens/products/listProduct'
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import * as productsAction from "../redux/actions/productsAction"
+import Products from "../screens/products/listProduct"
 
-function userProducts({ cart, addToCart }) {
-    console.log(cart, 'newCart')
-    return <ScreenProducts cart={cart} addToCart={addToCart} />
-}
-const mapStateToProps = (state) => ({
-    cart: state.cart,
-})
+function userProducts({ products, requestListProducts })
+{
+ 
+    return (
+        <Products
+            products={products}
+            requestListProducts={requestListProducts}
+        
+        />
+    );
+};
+const mapStateToProps = state => ({
+    products: state.products,
+});
 //DISPATCH
 const mapDispatchToProps = {
-    //  add Cart
-    addToCart: (product) => actions.addCart(product),
-}
+    //  get products
+    requestListProducts:  productsAction.requestProducts,
+};
 //check type props
 userProducts.propTypes = {
-    cart: PropTypes.shape({
-        listProduct: PropTypes.arrayOf(
+    products: PropTypes.shape({
+        getListProduct: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.number,
-                name: PropTypes.string,
-                quantity: PropTypes.number,
+                nameProduct: PropTypes.string,
+                description: PropTypes.string,
                 price: PropTypes.number,
-                image: PropTypes.string,
-                color: PropTypes.string,
-            }),
+                pictures: PropTypes.string,
+                color: PropTypes.string
+            })
         ),
-        totalQuantity: PropTypes.number,
-        totalPrice: PropTypes.number,
     }),
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(userProducts)
+};
+export default connect(mapStateToProps, mapDispatchToProps)(userProducts)
