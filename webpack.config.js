@@ -27,6 +27,7 @@ const VENDOR_LIBS = [
     'redux-saga',
     'use-dencrypt-effect',
     'yup',
+    'react-scroll',
 ]
 
 module.exports = {
@@ -45,7 +46,7 @@ module.exports = {
         contentBase: __dirname + '/public/',
         inline: true,
         //  contentBasePublicPath: "/", // theo dõi mặc định
-        open: true,
+        open: 'chrome',
         port: 9000,
         historyApiFallback: true,
     },

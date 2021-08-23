@@ -147,7 +147,7 @@ const DataCart = (props) => {
     return (
         <>
             <div
-                className="d-flex table-cart  mt-4 mb-4"
+                className="d-flex table-cart  mt-4 mb-4 datagrid-order"
                 style={{
                     minHeight: '400px',
                     width: '100%',

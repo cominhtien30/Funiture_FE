@@ -8,3 +8,6 @@ export const REQUEST_REGISTER = 'REQUEST_REGISTER'
 export const REQUEST_LOGIN_SOCIAL = 'REQUEST_LOGIN_SOCIAL'
 // alert
 export const ALTER_CHANGE = 'ALERT_CHANGE'
+//user
+export const REQUEST_PROFILE = 'REQUEST_PROFILE'
+export const GET_PROFILE = 'GET_PROFILE'

@@ -7,9 +7,11 @@ import Cart from './cart/cart'
 import Heart from './heart/heart'
 import logo1 from '../../../assets/images/logo/logo1.png'
 import Navigation from './navigation/navigation'
+import DropDownUser from './dropdown/dropdownUser'
 
 const Header = ({ handleOpenSignIn }) => {
-    const classes = styles()
+    const classes = styles() //style
+
     return (
         <>
             <header className={`${classes.root} header`}>
@@ -115,27 +117,14 @@ const Header = ({ handleOpenSignIn }) => {
                                         <i className="fa fa-user-o"></i>
                                     </a>
                                     <div className="dropdown-user">
-                                        <div
-                                            className={`${classes.row} lineBottom dropdown-option`}
-                                        >
-                                            <a
-                                                onClick={() =>
-                                                    handleOpenSignIn(
-                                                        true,
-                                                    )
-                                                }
-                                                href="#javascript()"
-                                            >
-                                                Login
-                                            </a>
-                                        </div>
-                                        <div
-                                            className={`${classes.row} lineBottom dropdown-option`}
-                                        >
-                                            <a href="#javascript()">
-                                                Sign up
-                                            </a>
-                                        </div>
+                                        {/* dropdown user */}
+                                        <DropDownUser
+                                            classes={classes}
+                                            handleOpenSignIn={
+                                                handleOpenSignIn
+                                            }
+                                        />
+                                        {/* {dropDownUser()} */}
                                         {/* <div className={`${classes.row} lineBottom dropdown-option`}>
                                             <a href="">Order</a>
                                         </div> */}

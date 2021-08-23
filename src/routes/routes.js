@@ -9,7 +9,7 @@ import Home from '../screens/home/home'
 import Products from '../container/userProducts'
 import Cart from '../screens/cart/cart'
 import Checkout from '../screens/checkout/checkout'
-import Profile from '../screens/profileUser/profile'
+import Profile from '../container/userProfile'
 import Detail from '../screens/detail/detail'
 import WishList from '../screens/wishList/wishList'
 import Error from '../screens/user404'
@@ -36,6 +36,7 @@ export default function Router() {
                 },
                 {
                     path: 'home',
+                    state: null,
                     element: <Home />,
                 },
                 {
@@ -51,13 +52,7 @@ export default function Router() {
                     element: isLogin ? (
                         <WishList />
                     ) : (
-                        <Navigate
-                            to="/home"
-                            replace
-                            state={{
-                                isLogin,
-                            }}
-                        />
+                        <Navigate to="/home" replace />
                     ),
                 },
                 {
@@ -65,13 +60,7 @@ export default function Router() {
                     element: isLogin ? (
                         <Cart />
                     ) : (
-                        <Navigate
-                            to="/home"
-                            replace
-                            state={{
-                                isLogin,
-                            }}
-                        />
+                        <Navigate to="/home" replace />
                     ),
                 },
                 {
@@ -79,13 +68,7 @@ export default function Router() {
                     element: isLogin ? (
                         <Checkout />
                     ) : (
-                        <Navigate
-                            to="/home"
-                            replace
-                            state={{
-                                isLogin,
-                            }}
-                        />
+                        <Navigate to="/home" replace />
                     ),
                 },
                 {
@@ -93,13 +76,7 @@ export default function Router() {
                     element: isLogin ? (
                         <Profile />
                     ) : (
-                        <Navigate
-                            to="/home"
-                            replace
-                            state={{
-                                isLogin,
-                            }}
-                        />
+                        <Navigate to="/home" replace />
                     ),
                 },
             ],

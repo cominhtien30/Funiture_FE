@@ -28,7 +28,12 @@
             1,
             { "extensions": [".js", ".jsx"] }
         ],
-        "prettier/prettier": ["error"],   // notice error when prettier wrong
+       "prettier/prettier": [
+            "error", // notice error when prettier wrong
+            {
+              "endOfLine": "auto"
+            }
+          ]  , 
         "react/prop-types": 0  //khong can kiem tra propstype
     }
 }

@@ -1,6 +1,3 @@
-// @flow
-// hook
-import { useLocation } from 'react-router-dom'
 //
 import React, { useEffect, useState } from 'react'
 import Carousel from '../../component/user/home/carousel/carousel'
@@ -23,26 +20,14 @@ import sofa from '../../assets/images/category/sofa.png'
 import all from '../../assets/images/category/square.png'
 import coffetable from '../../assets/images/category/table.png'
 import Loading from '../../commons/loading'
-// dispatch
-import { useDispatch } from 'react-redux'
-import * as actionSign from '../../redux/actions/signAction'
-// import * as actionAlert from '../../redux/actions/alertAction'
 
 const Home = () => {
-    const location = useLocation()
-    const dispatch = useDispatch()
-    useEffect(() => {
-        if (location.state) {
-            dispatch(actionSign.openSignIn(!location.state.isLogin))
-        }
-    }, [])
-
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 3000)
+        }, 2000)
     }, [])
 
     const classes = styles()
