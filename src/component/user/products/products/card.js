@@ -19,7 +19,8 @@ import
 
 const Products = ({ addToCart }) =>
 {
-    const classes = styles()
+    const classes = styles();
+    const { renderProducts } = props;
     return (<>
         <Card>
             <CardActionArea>
@@ -32,11 +33,10 @@ const Products = ({ addToCart }) =>
                 />
                 <CardContent>
                     <Typography gutterBottom variant="subtitle1" noWrap component="h2">
-                        Fabric Sofa Sets
+                        {renderProducts.nameProduct}
                     </Typography>
                     <Typography align="justify" variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {renderProducts.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -44,7 +44,7 @@ const Products = ({ addToCart }) =>
                 root: classes.CardActions
             }}>
                 <Typography variant="button" noWrap={true} color="primary" >
-                    400.$
+                   {}
                 </Typography>
                 <Button onClick={() => addToCart({ id: 1, name: "Funiture", quantity: 1, price: 20, image: "a", color: "#fff" })}>
                     Add To Cart

@@ -1,4 +1,5 @@
 import cart from "./cart"
+import products from "./product"
 import
 {
     combineReducers
@@ -6,6 +7,7 @@ import
 
 
 const myReducer = combineReducers({
-    cart
+    cart,
+    products
 })
 export default myReducer;

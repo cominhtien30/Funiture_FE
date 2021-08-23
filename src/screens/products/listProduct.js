@@ -16,7 +16,7 @@ import
 
 
 
-const listProduct = ({ cart, addToCart }) =>
+const listProduct = ({ products, requestListProducts }) =>
 {
 
     return (<>
@@ -32,7 +32,7 @@ const listProduct = ({ cart, addToCart }) =>
                     <Filter />
                 </Grid>
                 <Grid xs={9} item>
-                    <Products addToCart={addToCart} />
+                    <Products products={products} requestListProducts={requestListProducts} />
                 </Grid>
 
                 <Grid container justifyContent="center">

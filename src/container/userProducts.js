@@ -2,44 +2,42 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import * as actions from "../redux/actions/cartAction"
+import * as productsAction from "../redux/actions/productsAction"
 import Products from "../screens/products/listProduct"
 
-function userProducts({ cart, addToCart })
+function userProducts({ products, requestListProducts })
 {
-    console.log(cart, "newCart")
+ 
     return (
         <Products
-            cart={cart}
-            addToCart={addToCart}
+            products={products}
+            requestListProducts={requestListProducts}
 
         />
     );
 };
 const mapStateToProps = state => ({
-    cart: state.cart,
+    products: state.products,
 });
 //DISPATCH
 const mapDispatchToProps = {
     //  add Cart
-    addToCart: (product) => actions.addCart(product),
-
+    requestListProducts:  productsAction.requestProducts,
+    // get products
 };
 //check type props
 userProducts.propTypes = {
-    cart: PropTypes.shape({
-        listProduct: PropTypes.arrayOf(
+    products: PropTypes.shape({
+        getListProduct: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.number,
-                name: PropTypes.string,
-                quantity: PropTypes.number,
+                nameProduct: PropTypes.string,
+                description: PropTypes.number,
                 price: PropTypes.number,
-                image: PropTypes.string,
+                pictures: PropTypes.string,
                 color: PropTypes.string
             })
         ),
-        totalQuantity: PropTypes.number,
-        totalPrice: PropTypes.number
     }),
 
 
