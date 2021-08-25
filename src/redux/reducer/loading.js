@@ -1,10 +1,8 @@
-const initialState = {
-    getListProduct: [],
-}
+const initialState = false
 var myReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_PRODUCTS':
-            return { getListProduct: action.products }
+        case 'LOADING_CHANGE':
+            return action.open
         default:
             return state
     }

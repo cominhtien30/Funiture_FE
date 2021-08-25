@@ -1,17 +1,14 @@
-import * as types from "../../constants"
+import * as types from '../../constants'
 
-export const getProducts = (products) =>
-{
+export const getProducts = (products) => {
     return {
         type: types.GET_PRODUCTS,
-        products
+        products,
     }
-};
+}
 
-export const requestProducts = () =>
-{
+export const requestProducts = () => {
     return {
         type: types.REQUEST_PRODUCTS,
-
     }
-};
+}

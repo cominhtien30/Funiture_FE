@@ -14,3 +14,9 @@ export const getProfile = (user) => {
         user,
     }
 }
+export const updateProfile = (user) => {
+    return {
+        type: types.UPDATE_PROFILE,
+        user,
+    }
+}

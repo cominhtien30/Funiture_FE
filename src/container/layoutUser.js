@@ -10,10 +10,12 @@ export const layoutUserContainer = ({
     handleOpenSignIn,
     openAlert,
     alertChange,
+    openLoading,
 }) => {
     //console.log(handleOpen(), "handleOpen")
     return (
         <LayoutUser
+            openLoading={openLoading}
             openSignIn={openSignIn}
             handleOpenSignIn={handleOpenSignIn}
             openAlert={openAlert}
@@ -25,9 +27,11 @@ export const layoutUserContainer = ({
 const mapStateToProps = (state) => ({
     openSignIn: state.openSignIn,
     openAlert: state.alert,
+    openLoading: state.loading,
 })
 //check type props
 layoutUserContainer.propTypes = {
+    openLoading: PropTypes.bool,
     openSignIn: PropTypes.bool,
     openAlert: PropTypes.shape({
         open: PropTypes.bool,
@@ -41,6 +45,7 @@ const mapDispatchToProps = {
     handleOpenSignIn: (open) => actionSign.openSignIn(open),
     // Alert change
     alertChange: (payload) => actionAlert.alertChange(payload),
+    //loading
 }
 export default connect(
     mapStateToProps,

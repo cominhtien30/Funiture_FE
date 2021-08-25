@@ -1,39 +1,27 @@
 import api from '../../utils/api'
-import
-{
-    delay,
-    takeEvery,
-    call,
-    put,
+import { takeEvery, put } from 'redux-saga/effects'
 
-} from "redux-saga/effects";
-
-const url = 'product';
+const url = 'product'
 
 // render products
-function* getProductsWorker(action){
-     console.log("getProducts","test")
-    try{
-
-        const getProducts = yield api.get(`${url}/get-all-products`);
-        if (getProducts)
-        {
+function* getProductsWorker() {
+    console.log('getProducts', 'test')
+    try {
+        const getProducts = yield api.get(`${url}/get-all-products`)
+        if (getProducts) {
             const { data } = getProducts
+            console.log(getProducts, 'data')
             yield put({
                 type: 'GET_PRODUCTS',
-                products:data
+                products: data,
             })
-      
-
         }
+    } catch (error) {
+        console.log(error)
     }
-    catch(error){
-        console.log(error);
-    }
-};
+}
 
-export default function* productsWatcher()
-{
+export default function* productsWatcher() {
     // action data
-    yield takeEvery('REQUEST_PRODUCTS',getProductsWorker)
+    yield takeEvery('REQUEST_PRODUCTS', getProductsWorker)
 }

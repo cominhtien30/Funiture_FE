@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import * as actions from '../redux/actions/useAction'
 import ScreenUserProfile from '../screens/profileUser/profile'
 
-function userProfile({ userProfile, requestProfile }) {
+function userProfile({ userProfile, requestProfile, updateProfile }) {
     return (
         <ScreenUserProfile
+            updateProfile={updateProfile}
             userProfile={userProfile}
             requestProfile={requestProfile}
         />
@@ -21,6 +22,7 @@ const mapDispatchToProps = {
     //  rq profile
     requestProfile: (account, onGetSuccess) =>
         actions.requestProfile(account, onGetSuccess),
+    updateProfile: (user) => actions.updateProfile(user),
 }
 //check type props
 userProfile.propTypes = {

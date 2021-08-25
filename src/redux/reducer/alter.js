@@ -2,10 +2,11 @@ const initialState = {
     open: false,
     notice: false,
     patch: '',
+    status: '',
     message: '',
 }
 var myReducer = (state = initialState, action) => {
-    const { open, notice, patch, message } = action
+    const { open, notice, patch, message, status } = action
     switch (action.type) {
         case 'ALERT_CHANGE':
             console.log('test', 'test')
@@ -14,6 +15,7 @@ var myReducer = (state = initialState, action) => {
                 open,
                 notice,
                 patch,
+                status,
                 message,
             }
         default:

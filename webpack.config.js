@@ -48,6 +48,7 @@ module.exports = {
         //  contentBasePublicPath: "/", // theo dõi mặc định
         open: 'chrome',
         port: 9000,
+        overlay: true,
         historyApiFallback: true,
     },
     devtool: 'source-map',
@@ -90,4 +91,3 @@ module.exports = {
         new Dotenv(),
     ],
 }
-

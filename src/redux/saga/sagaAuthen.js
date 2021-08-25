@@ -1,5 +1,6 @@
 import api from '../../utils/api'
 import { takeEvery, call, put } from 'redux-saga/effects'
+import delayWorker from './worker/loadingWorker'
 const url = 'user'
 
 // login
@@ -9,6 +10,7 @@ function* loginWorker(action) {
             ...action.user,
             account: action.user.email,
         })
+        yield call(delayWorker)
         if (handleLogin) {
             console.log(handleLogin, 'handleLogin')
             const { message } = handleLogin.data
@@ -17,18 +19,20 @@ function* loginWorker(action) {
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: true,
+                status: 'auth',
                 patch: '/profile',
                 message,
             })
         }
     } catch (error) {
         const { message } = error.response.data
-        yield error.response.status === 400 &&
+        yield (error.response.status === 400 || 500) &&
             put({
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: false,
                 patch: '',
+                status: 'auth',
                 message,
             })
     }
@@ -41,6 +45,7 @@ function* loginSocialWorker(action) {
             `${url}/login-user-social`,
             { user },
         )
+        yield call(delayWorker)
         if (handleLogin) {
             const { message } = handleLogin.data
             yield call(isLoginSuccessWorker, handleLogin.data)
@@ -48,18 +53,20 @@ function* loginSocialWorker(action) {
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: true,
+                status: 'auth',
                 patch: '/profile',
                 message,
             })
         }
     } catch (error) {
         const { message } = error.response.data
-        yield error.response.status === 400 &&
+        yield (error.response.status === 400 || 500) &&
             put({
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: false,
                 patch: '',
+                status: 'auth',
                 message,
             })
     }
@@ -71,12 +78,14 @@ function* registerWorker(action) {
             ...action.newUser,
             account: action.newUser.email,
         })
+        yield call(delayWorker)
         if (handleRegister) {
             yield put({
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: true,
                 patch: '',
+                status: 'auth',
                 message: 'Đăng Ký Thành Công !',
             })
         }
@@ -86,6 +95,7 @@ function* registerWorker(action) {
                 type: 'ALERT_CHANGE',
                 open: true,
                 notice: false,
+                status: 'auth',
                 patch: '',
                 message: 'có lỗi xảy ra !',
             })
@@ -99,6 +109,7 @@ function isLoginSuccessWorker(isLoggined) {
     localStorage.setItem('access_token', token)
     localStorage.setItem('user', JSON.stringify({ account, type }))
 }
+
 export default function* authWatcher() {
     //action data
     yield takeEvery('REQUEST_LOGIN', loginWorker)

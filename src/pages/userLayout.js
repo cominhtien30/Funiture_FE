@@ -19,6 +19,7 @@ import CartFixed from '../component/user/cartFixed'
 import Login from '../container/login'
 import Register from '../container/register'
 import Alert from '../commons/alert'
+import Loading from '../commons/loading/handleUser'
 // ----global
 import GlobalCss from '../global.styles'
 function App({
@@ -26,6 +27,7 @@ function App({
     handleOpenSignIn,
     openAlert,
     alertChange,
+    openLoading,
 }) {
     const [openSignup, setOpenSignUp] = useState(false)
     // khi openSignIn openSignup thay đổi làm component reRender
@@ -97,6 +99,7 @@ function App({
                         handleOpenSignUp={handleOpenSignUp}
                     />
                 )}
+                {openLoading ? <Loading /> : ''}
                 <Chat />
                 <Footer />
                 {/* layout user */}

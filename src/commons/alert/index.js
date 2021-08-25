@@ -18,17 +18,21 @@ const Login = ({
     const [animationClose, setAnimationClose] = useState(false)
     const handleClickOk = () => {
         setAnimationClose(true)
-
         setTimeout(() => {
             if (openAlert.notice) {
                 //Dang nhap thanh cong thì đóng popupAuth và navigate
-                handleOpenSignIn(false)
-
-                authService.isAdmin()
-                    ? navigate('/admin')
-                    : navigate('/profile')
+                if (openAlert.status === 'auth') {
+                    handleOpenSignIn(false)
+                    authService.isAdmin()
+                        ? navigate('/admin')
+                        : navigate('/profile')
+                }
             }
-            if (openAlert.notice && openAlert.patch === '') {
+            if (
+                openAlert.notice &&
+                openAlert.patch === '' &&
+                openAlert.status === 'auth'
+            ) {
                 //register thanh cong đóng -> open popupLogin
                 handleOpenSignUp(false)
                 handleOpenSignIn(true)

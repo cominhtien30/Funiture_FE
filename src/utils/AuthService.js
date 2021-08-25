@@ -25,13 +25,21 @@ class AuthService {
             : ''
     }
     getToken() {
-        return localStorage.getItem('access_token')
+        return this.isLogin()
             ? localStorage.getItem('access_token')
             : ''
     }
     headerToken() {
         return {
             headers: { token: this.getToken() },
+        }
+    }
+    uploadHaveFile() {
+        return {
+            headers: {
+                token: this.getToken(),
+                'content-type': 'multipart/form-data',
+            },
         }
     }
 }
