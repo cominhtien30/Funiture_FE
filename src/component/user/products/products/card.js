@@ -60,10 +60,13 @@ const Products = ({ price, nameProduct, description, pictures }) => {
                         variant="button"
                         noWrap={true}
                         color="primary"
+                        style={{
+                            marginBottom: '5px',
+                        }}
                     >
                         {price}
                     </Typography>
-                    <Button>Add To Cart</Button>
+                    <Button fullWidth>Add To Cart</Button>
                 </CardActions>
             </Card>
         </>

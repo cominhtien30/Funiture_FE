@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styles from './profile.style'
 import { withTheme } from '@material-ui/core/styles'
 import authService from '../../utils/AuthService'
@@ -18,14 +18,16 @@ import {
 import FeatureProduct from '../../component/user/featureProducts/featureProduct'
 import DataGridOrder from '../../component/user/profile/dataGrid'
 import { Element } from 'react-scroll'
+import { validateEmail } from '../../utils/validation'
 
 const Profile = ({ theme, requestProfile, updateProfile }) => {
-    //updateProfile
-    //updateProfile
-    //userProfile
+    //kiểm tra mail ,mặc định là true vì khi register đã bắt buộc nhập mail
+    const isEmail = useRef(true)
+    //toggole swich edit
     const [isEdit, setIsEdit] = useState(false)
     const [user, setUser] = useState({})
     const [progress, setProgress] = useState(0)
+    //biến này sử dụng cho load ảnh tạm thời
     const [userAvatar, setAvatarUser] = useState(null)
 
     const onGetSuccess = (profile) => {
@@ -33,7 +35,10 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
         setAvatarUser(profile.avatar)
     }
     useEffect(() => {
+        //khi requesProfile thay doi thi dispatch no
         if (authService.isLogin() && authService.getAccount()) {
+            //kiem tra login
+            //sau đó truyền vào cái tài khoản cần update, và 1 funtion khi thành công thì set State vào
             requestProfile(authService.getAccount(), onGetSuccess)
         }
     }, [requestProfile])
@@ -45,6 +50,7 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
         const { value, name } = event.target
         // trong swich case biến tạo biến var mới được
         switch (name) {
+            //nếu là ảnh thì chạy progress bar sau đó load ảnh lên element
             case 'avatar':
                 var avt = window.URL.createObjectURL(
                     event.target.files[0],
@@ -72,6 +78,15 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
                     setAvatarUser(avt)
                 })
                 break
+            case 'email':
+                //nếu là emain thì kiểm tra
+                isEmail.current = validateEmail(value)
+
+                setUser({
+                    ...user,
+                    [name]: value,
+                })
+                break
             default:
                 setUser({
                     ...user,
@@ -80,20 +95,32 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
                 break
         }
     }
-
+    console.log(isEmail.current, 'current')
     // handle submit
     const submitHandle = (e) => {
         e.preventDefault()
-        const formData = new FormData()
-        let { avatar, ...fieldUser } = user
-        const newUser = ['password', 'type', 'createdAt', 'updatedAt']
-        newUser.forEach((e) => delete fieldUser[e])
-        formData.append('avatarUser', avatar)
-        Object.keys(fieldUser).forEach((nameField) => {
-            formData.append(nameField, fieldUser[nameField])
-        })
-        setIsEdit(false)
-        updateProfile(formData, onGetSuccess)
+        //check main
+        if (isEmail.current) {
+            //nếu mail đúng thì tạo form data add hết vào
+            const formData = new FormData()
+            let { avatar, ...fieldUser } = user // tác field avatar riêng
+            const newUser = [
+                'password',
+                'type',
+                'createdAt',
+                'updatedAt',
+            ]
+            newUser.forEach((e) => delete fieldUser[e]) //xóa field ko cần update
+            formData.append('avatarUser', avatar)
+            //add form
+            Object.keys(fieldUser).forEach((nameField) => {
+                formData.append(nameField, fieldUser[nameField])
+            })
+            //set switch tắt
+            setIsEdit(false)
+            //gửi thông tin vào action updateProfile
+            updateProfile(formData)
+        }
     }
     console.log(user, 'userAvatar')
     return (
@@ -163,6 +190,26 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
                                     value={user?.account}
                                     margin="normal"
                                     disabled
+                                    name="fullname"
+                                    onChange={onChangeHanlde}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="standard-basic"
+                                    value={user?.email}
+                                    margin="normal"
+                                    placeholder="Email Lien He"
+                                    name="email"
+                                    error={
+                                        !isEmail.current
+                                            ? true
+                                            : false
+                                    }
+                                    helperText={
+                                        !isEmail.current
+                                            ? 'is not Email'
+                                            : ''
+                                    }
                                     onChange={onChangeHanlde}
                                 />
                                 <TextField

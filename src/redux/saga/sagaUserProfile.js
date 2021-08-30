@@ -1,6 +1,6 @@
 import api from '../../utils/api'
 import { takeEvery, call, put } from 'redux-saga/effects' //select
-import delayWorker from './worker/loadingWorker'
+import { delayWorker, doneWorker } from './worker/loadingWorker'
 // service
 import authService from '../../utils/AuthService'
 const url = 'user'
@@ -26,10 +26,12 @@ function callGetProfile(action) {
 // update-----------------------------------
 function* updateProfileWorker(action) {
     try {
+        //  delay loading
         yield call(delayWorker)
         const update = yield call(callUpdateProfile, action)
-        console.log(update, 'update')
         if (update) {
+            yield call(doneWorker)
+            //neu thanh cong thi dis patch alter thanh cong
             const { message } = update.data
             yield put({
                 type: 'ALERT_CHANGE',
@@ -39,15 +41,9 @@ function* updateProfileWorker(action) {
                 patch: '',
                 message,
             })
-            // const user = yield select((state) => state.userProfile)
-            // const { onGetSuccess } = action
-            // yield put({
-            //     type: 'REQUEST_PROFILE',
-            //     user,
-            //     onGetSuccess,
-            // })
         }
     } catch (error) {
+        //neu that bai dispatch alert that bai
         const { message } = error.response.data
         yield (error.response.status === 400 || 500) &&
             console.log(error.response, 'update')
@@ -62,6 +58,7 @@ function* updateProfileWorker(action) {
     }
 }
 
+//call api update
 function callUpdateProfile(action) {
     const { user } = action
     return api.put(

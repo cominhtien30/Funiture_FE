@@ -15,7 +15,7 @@ import WishList from '../screens/wishList/wishList'
 import Error from '../screens/user404'
 // admin
 import Dashboard from '../screens/adminDashboard/adminDashboard'
-import ManageProducts from '../screens/adminProduct/adminProduct'
+import ManageProducts from '../container/adminProduct'
 // AuthService
 import AuthService from '../utils/AuthService'
 

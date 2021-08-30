@@ -23,6 +23,7 @@ const Register = ({
     const formik = useFormik({
         initialValues: {
             fullname: '',
+            account: '',
             email: '',
             password: '',
             repassword: '',
@@ -94,6 +95,35 @@ const Register = ({
                                     color="secondary"
                                 >
                                     <TextField
+                                        name="account"
+                                        error={
+                                            formik.touched.account &&
+                                            formik.errors.account
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            formik.touched.account &&
+                                            formik.errors.account
+                                                ? formik.errors
+                                                      .account
+                                                : ''
+                                        }
+                                        onChange={formik.handleChange}
+                                        value={formik.values.account}
+                                        classes={{
+                                            root: classes.input,
+                                        }}
+                                        fullWidth
+                                        id="standard-adornment-password"
+                                        placeholder="account"
+                                    />
+                                </FormControl>
+                                <FormControl
+                                    className={`  d-flex justify-content-center align-items-center  mt-2`}
+                                    color="secondary"
+                                >
+                                    <TextField
                                         name="email"
                                         error={
                                             formik.touched.email &&
@@ -114,7 +144,7 @@ const Register = ({
                                         }}
                                         fullWidth
                                         id="standard-adornment-password"
-                                        placeholder="account"
+                                        placeholder="email"
                                     />
                                 </FormControl>
                                 <FormControl

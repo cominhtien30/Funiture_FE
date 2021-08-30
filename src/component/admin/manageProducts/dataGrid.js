@@ -6,7 +6,8 @@ import imgProduct from '../../../assets/images/products/product.jpg'
 import { withTheme } from '@material-ui/core'
 import none from '../../../assets/images/logo/none.png'
 
-const DataGridProduct = ({ theme, handleChangeModal }) => {
+const DataGridProduct = ({ theme, handleChangeModal, products }) => {
+    console.log(products.getListProduct, ' products.getListProduct')
     const cellImage = (img) => {
         const style = {
             objectFit: 'cover',
@@ -136,16 +137,15 @@ const DataGridProduct = ({ theme, handleChangeModal }) => {
         },
     ]
 
-    const rows = Array(5)
-        .fill(0)
-        .map((item, index) => ({
-            id: index,
-            name: 'Snow',
-            price: 35,
-            image: imgProduct,
-            quantity: 30 + index,
-            color: '#5b97c3',
-        }))
+    const rows = products.getListProduct.map((item, index) => ({
+        id: index,
+        name: item.nameProduct,
+        description: item.description,
+        price: item.price,
+        image: imgProduct,
+        quantity: 30 + index,
+        color: item.color,
+    }))
 
     return (
         <>

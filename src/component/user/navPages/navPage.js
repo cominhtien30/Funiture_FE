@@ -6,9 +6,7 @@ const navPage = () => {
     const classes = styles()
     return (
         <>
-            <nav
-                className={`${classes.navPage} path-page  row  mt-5 mb-3`}
-            >
+            <nav className={`${classes.navPage} path-page  row mb-3`}>
                 <div className="col-4 d-flex justify-space-between">
                     <a href="" className="item-patch">
                         Furniture Home

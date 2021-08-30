@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Collapse from '@material-ui/core/Collapse'
@@ -9,7 +9,11 @@ import DataGridManagerProduct from '../../component/admin/manageProducts/dataGri
 import FormAdd from '../../component/admin/manageProducts/formAdd'
 import Modal from '@material-ui/core/Modal'
 
-export default function Dashboard() {
+export default function Dashboard({ products, requestListProducts }) {
+    //requestListProducts
+    useEffect(() => {
+        requestListProducts()
+    }, [requestListProducts])
     const [checked, setChecked] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
 
@@ -45,6 +49,7 @@ export default function Dashboard() {
                         </Grid>
                         <DataGridManagerProduct
                             handleChangeModal={handleChangeModal}
+                            products={products}
                         />
                     </Paper>
                 </Grid>

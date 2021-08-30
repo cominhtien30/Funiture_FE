@@ -1,17 +1,19 @@
 import api from '../../utils/api'
 import { takeEvery, call, put } from 'redux-saga/effects'
-import delayWorker from './worker/loadingWorker'
+import { delayWorker, doneWorker } from './worker/loadingWorker'
 const url = 'user'
 
 // login
 function* loginWorker(action) {
     try {
+        yield call(delayWorker)
         const handleLogin = yield api.post(`${url}/login-user`, {
             ...action.user,
             account: action.user.email,
         })
-        yield call(delayWorker)
+
         if (handleLogin) {
+            yield call(doneWorker)
             console.log(handleLogin, 'handleLogin')
             const { message } = handleLogin.data
             yield call(isLoginSuccessWorker, handleLogin.data)
@@ -76,7 +78,6 @@ function* registerWorker(action) {
     try {
         const handleRegister = yield api.post(`${url}/create-user`, {
             ...action.newUser,
-            account: action.newUser.email,
         })
         yield call(delayWorker)
         if (handleRegister) {
