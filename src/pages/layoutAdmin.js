@@ -14,6 +14,7 @@ import { Outlet } from 'react-router-dom'
 import Header from '../component/admin/header'
 import Footer from '../component/admin/footer/'
 import Navigation from '../component/admin/drawerNavigation/index'
+import AlertAdmin from '../commons/alert/alterAdmin'
 import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -28,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
     },
 }))
-function App() {
+function App({ openAlert }) {
     const classes = useStyles()
-    const [open, setOpen] = React.useState(true)
+    const [open, setOpen] = React.useState(true) //allow open Drawer
     const handleDrawerOpen = () => {
         setOpen(true)
     }
@@ -60,6 +61,7 @@ function App() {
                     <Footer />
                 </main>
             </div>
+            {openAlert?.open && <AlertAdmin />}
         </React.Fragment>
     )
 }

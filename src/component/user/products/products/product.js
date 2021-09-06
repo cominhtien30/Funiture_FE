@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react'
+import React from 'react'
 import { withTheme } from '@material-ui/core/styles'
 import CardProduct from './card'
 import {
@@ -12,12 +12,7 @@ import {
     Grid,
 } from '@material-ui/core'
 
-const Products = ({ products, requestListProducts }) => {
-    useEffect(() => {
-        requestListProducts()
-    }, [requestListProducts])
-
-    console.log(products.getListProduct, 'getListProduct')
+const Products = ({ products, addToCart }) => {
     return (
         <>
             <div className={`list-product`}>
@@ -28,6 +23,9 @@ const Products = ({ products, requestListProducts }) => {
                                 return (
                                     <Grid item xs={4} key={index}>
                                         <CardProduct
+                                            addToCart={addToCart}
+                                            id={item.id}
+                                            color={item.color}
                                             price={item.price}
                                             nameProduct={
                                                 item.nameProduct

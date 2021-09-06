@@ -19,7 +19,6 @@ import CartFixed from '../component/user/cartFixed'
 import Login from '../container/login'
 import Register from '../container/register'
 import Alert from '../commons/alert'
-import Loading from '../commons/loading/handleUser'
 // ----global
 import GlobalCss from '../global.styles'
 function App({
@@ -27,7 +26,9 @@ function App({
     handleOpenSignIn,
     openAlert,
     alertChange,
-    openLoading,
+    cart,
+    deleteItemCart,
+    updateItemCart,
 }) {
     const [openSignup, setOpenSignUp] = useState(false)
     // khi openSignIn openSignup thay đổi làm component reRender
@@ -35,10 +36,14 @@ function App({
     useEffect(() => {
         const body = document.querySelector('body')
         openSignIn || openSignup
-            ? disableBodyScroll(body)
+            ? disableBodyScroll(body, {
+                  reserveScrollBarGap: true,
+              })
             : !openSignIn && !openSignup
             ? enableBodyScroll(body)
-            : disableBodyScroll(body)
+            : disableBodyScroll(body, {
+                  reserveScrollBarGap: true,
+              })
     }, [openSignIn, openSignup])
 
     // viết useCallback để khi không dùng hàm thì sẽ không Created
@@ -88,7 +93,11 @@ function App({
                 {/* popup auth */}
                 {formAuth()}
                 {/* menu cart */}
-                <CartFixed />
+                <CartFixed
+                    cart={cart}
+                    deleteItemCart={deleteItemCart}
+                    updateItemCart={updateItemCart}
+                />
                 {/* icon chat */}
                 {/* alert */}
                 {openAlert.open && (
@@ -99,7 +108,6 @@ function App({
                         handleOpenSignUp={handleOpenSignUp}
                     />
                 )}
-                {openLoading ? <Loading /> : ''}
                 <Chat />
                 <Footer />
                 {/* layout user */}

@@ -1,15 +1,14 @@
 const initialState = {
-    open: false,
-    notice: false,
-    patch: '',
-    status: '',
-    message: '',
+    open: false, // open or off alert
+    notice: false, //if true , will green alert , else false, will red alert
+    patch: '', // đường dẫn router có thể có hoặc không
+    status: '', //nó thuộc loại hành động nào, đăng nhập hay là xử lý chức năng
+    message: '', //gửi 1 thông báo vào component
 }
 var myReducer = (state = initialState, action) => {
     const { open, notice, patch, message, status } = action
     switch (action.type) {
         case 'ALERT_CHANGE':
-            console.log('test', 'test')
             return {
                 ...state,
                 open,

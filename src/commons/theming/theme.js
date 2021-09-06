@@ -131,7 +131,7 @@ const theme = createTheme({
             root: {
                 marginRight: '10px',
                 maxHeight: '40px',
-                lineHeight: '40px',
+                // lineHeight: '40px',
             },
         },
         // paper

@@ -17,6 +17,11 @@ const items = [
         patch: 'products',
     },
     {
+        label: 'Categorys',
+        component: 'class',
+        patch: 'categorys',
+    },
+    {
         label: 'Orders',
         component: 'shopping_cart',
         patch: '',

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styles from './profile.style'
 import { withTheme } from '@material-ui/core/styles'
 import authService from '../../utils/AuthService'
-import ProgressBar from './progressBar'
+import ProgressBar from '../../commons/processBar/progressBar'
 import {
     Button,
     Typography,
@@ -122,7 +122,6 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
             updateProfile(formData)
         }
     }
-    console.log(user, 'userAvatar')
     return (
         <>
             <div

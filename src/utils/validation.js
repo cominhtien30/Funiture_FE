@@ -30,6 +30,14 @@ export const validationUpdateUser = Yup.object({
         .required('Account is required')
         .email('Enter a valid email'),
 })
+export const validationCategory = Yup.object({
+    name: Yup.string('Enter your name category')
+        .required('name is required')
+        .min(5, 'Name should be of minimum 5 characters length'),
+    image: Yup.string('Enter your name category').required(
+        'image is required',
+    ),
+})
 export function validateEmail(email) {
     const re =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

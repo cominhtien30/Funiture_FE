@@ -9,7 +9,7 @@ import ProcessStep from '../../component/user/processStep'
 import DataGridCart from '../../component/user/cart/dataGrid'
 import ImagesPayment from '../../component/user/imagesPayment'
 
-const Cart = () => {
+const Cart = ({ cart, deleteItemCart, updateItemCart }) => {
     const classes = styles()
     // styles row image
 
@@ -33,7 +33,11 @@ const Cart = () => {
                     <div className="p-3"></div>
                     <Button>CHECKOUT</Button>
                 </div>
-                <DataGridCart />
+                <DataGridCart
+                    cart={cart}
+                    deleteItemCart={deleteItemCart}
+                    updateItemCart={updateItemCart}
+                />
 
                 <Grid container>
                     <ImagesPayment />

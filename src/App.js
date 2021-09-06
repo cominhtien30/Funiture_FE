@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 // component
 import ScrollToTop from './component/scrollToTop'
+import Loading from './container/loadingContainer'
 import theme from './commons/theming/theme'
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <CssBaseline />
                     <ScrollToTop />
                     <Router />
+                    <Loading />
                 </ThemeProvider>
             </BrowserRouter>
         </Provider>

@@ -1,9 +1,20 @@
 //cart
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const DELETE_TO_ITEM_CART = 'DELETE_TO_ITEM_CART'
+export const UPDATE_TO_ITEM_CART = 'UPDATE_TO_ITEM_CART'
 
-export const ADD_CART = 'ADD_CART'
 //Get_Products
 export const GET_PRODUCTS = 'GET_PRODUCTS'
+export const GET_COLORS = 'GET_COLORS'
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS'
+// category
+export const REQUEST_CATEGORY = 'REQUEST_CATEGORY'
+export const GET_CATEGORY = 'GET_CATEGORY'
+export const ADD_CATEGORY = 'ADD_CATEGORY'
+export const REQUEST_DETAIL_CATEGORY = 'REQUEST_DETAIL_CATEGORY'
+export const GET_DETAIL_CATEGORY = 'GET_DETAIL_CATEGORY'
+export const DELETE_CATEGORY = 'DELETE_CATEGORY'
+
 // sign in popup
 export const CHANGE_OPEN = 'CHANGE_OPEN'
 // Authe

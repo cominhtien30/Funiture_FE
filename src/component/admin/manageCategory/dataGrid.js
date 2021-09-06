@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     DataGrid,
     GridOverlay,
@@ -8,12 +8,25 @@ import {
     GridToolbarFilterButton,
 } from '@mui/x-data-grid'
 import { makeStyles } from '@material-ui/styles'
-
-// import { DataGrid, GridOverlay } from '@material-ui/data-grid'
 import { LinearProgress } from '@material-ui/core'
 import { withTheme } from '@material-ui/core'
+import DialogDelete from './dialogDelete'
 
-const DataGridProduct = ({ theme, handleChangeModal, products }) => {
+const DataGridProduct = ({
+    theme,
+    handleChangeModal,
+    categorys,
+    deleteCategory,
+}) => {
+    const [openDialog, setOpenDialog] = useState({
+        open: false,
+        id: null,
+    })
+    // when open diaglog , will set open:true and id:id_Category
+    const handleOpenDialog = (open, id = null) => {
+        setOpenDialog({ ...openDialog, open, id })
+    }
+    // render cell
     const cellImage = (img) => {
         const style = {
             objectFit: 'cover',
@@ -22,21 +35,11 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
         }
         return <img src={img} style={style} />
     }
-    const cellColor = (color) => {
-        const style = {
-            backgroundColor: color,
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-        }
-        return <div style={style} />
-    }
     const cellAction = (id) => {
         return (
             <div className="d-flex justify-content-between">
                 <a
-                    key={id}
-                    onClick={() => handleChangeModal(true)}
+                    onClick={() => handleChangeModal(true, id)}
                     href="#javasctipt()"
                     style={{
                         color: 'green',
@@ -47,6 +50,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
                 </a>
                 <a
                     href="#javasctipt()"
+                    onClick={() => handleOpenDialog(true, id)}
                     style={{
                         color: 'red',
                         margin: '0 5px',
@@ -57,6 +61,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
             </div>
         )
     }
+    // -----------------------------------------
     const CustomLoadingOverlay = () => {
         return (
             <GridOverlay>
@@ -90,55 +95,30 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
         )
     }
 
+    // render column
     const columns = [
         {
             field: 'id',
             headerName: 'ID',
-            width: 50,
+            width: 150,
         },
         {
             field: 'name',
             headerName: 'name',
-            width: 210,
+            width: 360,
         },
         {
-            field: 'nameCategory',
-            headerName: 'Category',
-            width: 210,
-        },
-        {
-            field: 'image',
+            field: 'typeproducts',
             headerName: 'image',
-            width: 80,
+            width: 280,
             renderCell: (param) => {
-                return cellImage(param.row.image)
-            },
-        },
-        {
-            field: 'price',
-            headerName: 'price',
-            type: 'number',
-            width: 120,
-        },
-        {
-            field: 'quantity',
-            headerName: 'quantity',
-            type: 'number',
-            width: 120,
-        },
-        {
-            field: 'color',
-            headerName: 'color',
-            type: 'number',
-            width: 120,
-            renderCell: (param) => {
-                return cellColor(param.row.color)
+                return cellImage(param.row.typeproducts)
             },
         },
         {
             field: 'col8',
             headerName: 'Action',
-            width: 100,
+            width: 110,
             headerAlign: 'center',
             align: 'center',
             renderCell: (param) => {
@@ -146,16 +126,13 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
             },
         },
     ]
+    // ------------------
 
-    const rows = products.getAllProduct.map((item, index) => ({
-        id: index,
-        name: item?.nameProduct,
-        description: item?.description,
-        price: item?.price,
-        image: item?.pictures,
-        quantity: 30 + index,
-        color: item?.color,
-        nameCategory: item?.flowTypeProducts?.nameTypeProduct,
+    // send data to rows
+    const rows = categorys.map((item) => ({
+        id: item.id,
+        name: item.nameTypeProduct,
+        typeproducts: item.imagesTypeProduct,
     }))
     const classes = useStyles()
 
@@ -167,28 +144,24 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
                     columns={columns}
                     autoHeight
                     pageSize={7}
-                    // rowsPerPageOptions={[7]}
                     disableSelectionOnClick
-                    // hideFooter
-                    // disableColumnFilter
-                    // disableColumnMenu
-                    hideFooterRowCount
-                    hideFooterSelectedRowCount
-                    // hideFooterPagination
-                    loading={products ? false : true}
                     components={{
                         Toolbar: CustomToolbar,
+
                         LoadingOverlay: CustomLoadingOverlay,
                         NoRowsOverlay: CustomNoRowsOverlay,
                     }}
-
                     // loading
                 />
             </div>
+            <DialogDelete
+                openDialog={openDialog}
+                handleOpenDialog={handleOpenDialog}
+                deleteCategory={deleteCategory}
+            />
         </>
     )
 }
-
 function CustomToolbar() {
     return (
         <GridToolbarContainer>
@@ -198,18 +171,11 @@ function CustomToolbar() {
         </GridToolbarContainer>
     )
 }
+// styles
 const useStyles = makeStyles(() => ({
     root: {
         '& .MuiButton-text': {
             backgroundColor: 'white',
-        },
-        '& .MuiPaper-root': {
-            '& .MuiGridPanelFooter-root': {
-                backgroundColor: 'red',
-                '& .MuiButtonBase-root': {
-                    color: 'white',
-                },
-            },
         },
     },
 }))

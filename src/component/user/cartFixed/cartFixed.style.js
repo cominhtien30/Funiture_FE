@@ -65,10 +65,60 @@ const styles = makeStyles((theme) => ({
                 color: theme.palette.primary.main,
             },
         },
+        '& .coutItemAnimation': {
+            opacity: ({ animationCount, cart }) =>
+                animationCount && cart > 0 ? 1 : 0,
+            height: ({ animationCount }) =>
+                `${animationCount ? '28px' : '38px'} `,
+            width: ({ animationCount }) =>
+                `${animationCount ? '28px' : '38px'} `,
+            transition:
+                'transform .2s .1s,opacity .2s,height .4s ,width .4s',
+            transform: ({ animationCount }) =>
+                `${
+                    animationCount
+                        ? 'translateY(0)'
+                        : 'translateY(-500%)'
+                } `,
+        },
+        '& .coutItem': {
+            // opacity: 1,
+            zIndex: 99999,
+            top: '-20%',
+            right: '-20%',
+            color: 'white',
+            position: 'absolute',
+            background: 'red',
+            borderRadius: '50%',
+            fontWeight: '600',
+            lineHeight: '28px',
+            textAlign: 'center',
+        },
+        '& .showCount': {
+            height: '28px',
+            width: '28px',
+            opacity: ({ cart }) => (cart > 0 ? 1 : 0),
+        },
     },
     boxShadow: {
         boxShadow:
             ' rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
+    },
+    sectionUpdate: {
+        minWidth: '120px',
+        maxWidth: '120px',
+        border: `1px ${theme.palette.primary.main} solid`,
+        '& .btnUpdate': {
+            backgroundColor: theme.palette.primary.main,
+            fontWeight: 600,
+            color: 'white',
+            padding: '1px 12px',
+            borderRadius: '10px',
+            '&:hover': {
+                cursor: 'pointer',
+                backgroundColor: theme.palette.primary.title,
+            },
+        },
     },
 }))
 export default styles

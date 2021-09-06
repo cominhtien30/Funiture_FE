@@ -2,49 +2,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import LayoutUser from '../pages/userLayout'
-import * as actionSign from '../redux/actions/signAction'
+import CartUser from '../screens/cart/cart'
 import * as actionCart from '../redux/actions/cartAction'
-import * as actionAlert from '../redux/actions/alertAction'
-export const layoutUserContainer = ({
-    openSignIn,
-    handleOpenSignIn,
-    openAlert,
-    alertChange,
+
+export const CartUserContainer = ({
     cart,
     deleteItemCart,
     updateItemCart,
 }) => {
     //console.log(handleOpen(), "handleOpen")
     return (
-        <LayoutUser
+        <CartUser
             cart={cart}
             deleteItemCart={deleteItemCart}
             updateItemCart={updateItemCart}
-            openSignIn={openSignIn}
-            handleOpenSignIn={handleOpenSignIn}
-            openAlert={openAlert}
-            alertChange={alertChange}
         />
     )
 }
 // state
 const mapStateToProps = (state) => ({
-    openSignIn: state.openSignIn,
-    openAlert: state.alert,
-    // cart
     cart: state.cart,
 })
 //check type props
-layoutUserContainer.propTypes = {
-    openLoading: PropTypes.bool,
-    openSignIn: PropTypes.bool,
-    openAlert: PropTypes.shape({
-        open: PropTypes.bool,
-        notice: PropTypes.bool,
-        patch: PropTypes.string,
-        message: PropTypes.string,
-    }),
+CartUserContainer.propTypes = {
     // cart.
     cart: PropTypes.arrayOf(
         PropTypes.shape({
@@ -58,10 +38,6 @@ layoutUserContainer.propTypes = {
     ),
 }
 const mapDispatchToProps = {
-    handleOpenSignIn: (open) => actionSign.openSignIn(open),
-    // Alert change
-    alertChange: (payload) => actionAlert.alertChange(payload),
-    // delete cart
     deleteItemCart: (id) => actionCart.deleteItemCart(id),
     // update
     updateItemCart: (id, quantity) =>
@@ -70,4 +46,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(layoutUserContainer)
+)(CartUserContainer)

@@ -1,12 +1,34 @@
 // @flow
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import styles from './cart.style'
 import { withTheme } from '@material-ui/core/styles'
 import { LinearProgress } from '@material-ui/core'
 import { DataGrid, GridOverlay } from '@material-ui/data-grid'
-import product from '../../../assets/images/products/product.jpg'
+import {
+    Typography,
+    // TextField
+} from '@material-ui/core'
 import none from '../../../assets/images/logo/none.png'
 
-const DataCart = (props) => {
+const DataCart = ({
+    cart,
+    theme,
+    deleteItemCart,
+    updateItemCart,
+}) => {
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [cart])
+    const classes = styles()
+
+    const updateHandle = (id, quantity) => {
+        quantity >= 1 && updateItemCart(id, quantity)
+    }
+
     // styles row image
     const cellImage = (img) => {
         const style = {
@@ -29,11 +51,14 @@ const DataCart = (props) => {
         return (
             <>
                 <a
-                    key={id}
-                    href=""
+                    onClick={() => deleteItemCart(id)}
+                    href="#javascript()"
                     className="d-flex justify-content-center"
                 >
-                    <i className="fa fa-trash"></i>
+                    <i
+                        className="fa fa-trash"
+                        style={{ color: 'red' }}
+                    ></i>
                 </a>
             </>
         )
@@ -42,26 +67,31 @@ const DataCart = (props) => {
     const cellQuantity = (id, quantity) => {
         return (
             <>
-                <div className="d-flex justify-content-between">
-                    <a href="#javascript()">
-                        <i
-                            className="fa fa-chevron-down"
-                            style={{
-                                marginRight: '4px',
-                                color: 'red',
-                            }}
-                        ></i>
-                    </a>{' '}
-                    {quantity}{' '}
-                    <a href="#javascript()">
-                        <i
-                            className="fa fa-chevron-up ml-2"
-                            style={{
-                                marginLeft: '4px',
-                                color: 'green',
-                            }}
-                        ></i>
-                    </a>
+                <div
+                    className={`d-flex justify-content-around p-2 ${classes.sectionUpdate}`}
+                >
+                    <span
+                        className="btnUpdate down d-flex justify-content-center align-items-center"
+                        onClick={() => updateHandle(id, quantity - 1)}
+                    >
+                        -
+                    </span>
+                    <Typography
+                        variant="body1"
+                        style={{
+                            fontWeight: 500,
+                            color: 'black',
+                            padding: '0 8px',
+                        }}
+                    >
+                        {quantity}
+                    </Typography>
+                    <span
+                        className="btnUpdate up d-flex justify-content-center align-items-center"
+                        onClick={() => updateHandle(id, quantity + 1)}
+                    >
+                        +
+                    </span>
                 </div>
             </>
         )
@@ -90,7 +120,7 @@ const DataCart = (props) => {
                     <h4
                         className="mt-3"
                         style={{
-                            color: props.theme.palette.primary.title,
+                            color: theme.palette.primary.title,
                         }}
                     >
                         Cart Empty
@@ -107,16 +137,16 @@ const DataCart = (props) => {
             width: 150,
         },
         {
-            field: 'name',
+            field: 'nameProduct',
             headerName: 'name',
             width: 210,
         },
         {
-            field: 'image',
+            field: 'pictures',
             headerName: 'image',
             width: 140,
             renderCell: (param) => {
-                return cellImage(param.row.image)
+                return cellImage(param.row.pictures)
             },
         },
         {
@@ -154,16 +184,14 @@ const DataCart = (props) => {
         },
     ]
 
-    const rows = Array(5)
-        .fill(0)
-        .map((item, index) => ({
-            id: index,
-            name: 'Snow',
-            price: 35,
-            image: product,
-            quantity: 30 + index,
-            color: '#5b97c3',
-        }))
+    const rows = cart.map((item) => ({
+        id: item.id,
+        nameProduct: item.nameProduct,
+        price: item.price,
+        pictures: item.pictures,
+        quantity: item.quantity,
+        color: item.color,
+    }))
 
     return (
         <>
@@ -185,7 +213,7 @@ const DataCart = (props) => {
                     hideFooterRowCount
                     hideFooterSelectedRowCount
                     hideFooterPagination
-                    //loading
+                    loading={loading}
                     components={{
                         LoadingOverlay: CustomLoadingOverlay,
                         NoRowsOverlay: CustomNoRowsOverlay,

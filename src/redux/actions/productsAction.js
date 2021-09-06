@@ -6,9 +6,9 @@ export const getProducts = (products) => {
         products,
     }
 }
-
-export const requestProducts = () => {
+export const requestProducts = (url) => {
     return {
         type: types.REQUEST_PRODUCTS,
+        url,
     }
 }

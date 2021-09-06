@@ -1,5 +1,6 @@
 //
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Carousel from '../../component/user/home/carousel/carousel'
 import { Grid, Typography } from '@material-ui/core'
 import styles from './home.style'
@@ -22,6 +23,7 @@ import coffetable from '../../assets/images/category/table.png'
 import Loading from '../../commons/loading'
 
 const Home = () => {
+    let navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         setLoading(true)
@@ -174,9 +176,15 @@ const Home = () => {
                             </div>
                         </Grid>
                         <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
+                            <div
+                                onClick={() => navigate('/products')}
+                                className="item-category d-flex align-items-center flex-column"
+                            >
                                 <img src={all} alt="" />
-                                <a href="" className="d-flex">
+                                <a
+                                    href="#javascript()"
+                                    className="d-flex"
+                                >
                                     all
                                 </a>
                             </div>

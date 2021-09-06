@@ -2,12 +2,12 @@ import React from 'react'
 import { Navigate, useRoutes } from 'react-router-dom'
 // layouts
 import LayoutUser from '../container/layoutUser'
-import LayoutAdmin from '../pages/layoutAdmin'
+import LayoutAdmin from '../container/layoutAdmin'
 // screens
 // user
 import Home from '../screens/home/home'
 import Products from '../container/userProducts'
-import Cart from '../screens/cart/cart'
+import Cart from '../container/userCart'
 import Checkout from '../screens/checkout/checkout'
 import Profile from '../container/userProfile'
 import Detail from '../screens/detail/detail'
@@ -16,6 +16,7 @@ import Error from '../screens/user404'
 // admin
 import Dashboard from '../screens/adminDashboard/adminDashboard'
 import ManageProducts from '../container/adminProduct'
+import ManageCategorys from '../container/adminCategory'
 // AuthService
 import AuthService from '../utils/AuthService'
 
@@ -36,7 +37,6 @@ export default function Router() {
                 },
                 {
                     path: 'home',
-                    state: null,
                     element: <Home />,
                 },
                 {
@@ -102,10 +102,14 @@ export default function Router() {
                     path: 'products',
                     element: <ManageProducts />,
                 },
+                {
+                    path: 'categorys',
+                    element: <ManageCategorys />,
+                },
             ],
         },
 
-        // 404
+        //  404
         { path: '404', element: <Error /> },
         {
             path: '*',

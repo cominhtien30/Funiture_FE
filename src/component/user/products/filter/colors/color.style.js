@@ -8,7 +8,7 @@ const styles = makeStyles((theme) => ({
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
-                backgroundColor: theme.palette.primary.main,
+                border: `1px ${theme.palette.primary.title} solid`,
                 cursor: 'pointer',
                 lineHeight: '32px',
                 '& i': {

@@ -5,24 +5,31 @@ import Collapse from '@material-ui/core/Collapse'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import Title from '../../component/admin/title'
-import DataGridManagerProduct from '../../component/admin/manageProducts/dataGrid'
-import FormAdd from '../../component/admin/manageProducts/formAdd'
+import DataGridManagerCategory from '../../component/admin/manageCategory/dataGrid'
+import FormAdd from '../../component/admin/manageCategory/formAdd'
 import Modal from '@material-ui/core/Modal'
 
-export default function Dashboard({ products, requestListProducts }) {
+export default function AdminCategory({
+    categorys,
+    requestListCategorys,
+    addCategorys,
+    requestDetailCategory,
+    deleteCategory,
+}) {
     //requestListProducts
     useEffect(() => {
-        requestListProducts()
-    }, [requestListProducts])
+        requestListCategorys()
+    }, [requestListCategorys])
     const [checked, setChecked] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
-
-    const handleChange = () => {
-        setChecked((prev) => !prev)
+    // const [detail, setDetail] = React.useState({})
+    const handleChange = (open) => {
+        setChecked(open)
     }
     // modal
-    const handleChangeModal = (open) => {
+    const handleChangeModal = (open, idCat) => {
         setOpenModal(open)
+        open && requestDetailCategory(idCat)
     }
 
     return (
@@ -35,30 +42,37 @@ export default function Dashboard({ products, requestListProducts }) {
                             container
                             justifyContent="space-between"
                         >
-                            <Title>Products Manage</Title>
+                            <Title>Categorys Manage</Title>
                             <FormControlLabel
                                 control={
                                     <Switch
                                         size="medium"
                                         checked={checked}
-                                        onChange={handleChange}
+                                        onChange={() =>
+                                            handleChange(!checked)
+                                        }
                                     />
                                 }
-                                label="Add New Product"
+                                label="Add New Category"
                             />
                         </Grid>
-                        <DataGridManagerProduct
+                        <DataGridManagerCategory
                             handleChangeModal={handleChangeModal}
-                            products={products}
+                            categorys={categorys.listCategory}
+                            deleteCategory={deleteCategory}
                         />
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                     <Collapse in={checked}>
                         <Paper>
-                            <Title>Add New Product</Title>
+                            <Title>Add New Category</Title>
                             <Grid container>
-                                <FormAdd action="add" />
+                                <FormAdd
+                                    action="add"
+                                    addCategorys={addCategorys}
+                                    handleChangeSwitch={handleChange}
+                                />
                             </Grid>
                         </Paper>
                     </Collapse>
@@ -73,11 +87,14 @@ export default function Dashboard({ products, requestListProducts }) {
                 <Paper
                     style={{
                         width: '60%',
-                        margin: '5% auto',
+                        margin: '8% auto',
                     }}
                 >
                     <Grid item xs={12} md={12} lg={12}>
-                        <FormAdd action="edit" />
+                        <FormAdd
+                            action="edit"
+                            category={categorys?.detail}
+                        />
                     </Grid>
                 </Paper>
             </Modal>
