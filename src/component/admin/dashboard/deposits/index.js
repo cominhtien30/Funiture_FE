@@ -3,6 +3,7 @@ import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from '../../title'
+import useTheme from '@material-ui/core/styles/useTheme'
 
 function preventDefault(event) {
     event.preventDefault()
@@ -30,7 +31,7 @@ export default function Deposits() {
             </Typography>
             <div>
                 <Link
-                    color="primary"
+                    style={{ color: useTheme().palette.primary.main }}
                     href="#"
                     onClick={preventDefault}
                 >

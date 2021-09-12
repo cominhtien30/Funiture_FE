@@ -17,11 +17,11 @@ const listProduct = ({
     let location = useLocation()
     const query = new URLSearchParams(location.search).get('api')
     const page = new URLSearchParams(location.search).get('page')
-    console.log(page, 'page')
-    let search = query ? `${query}${page}` : 'get-pagination/1'
     useEffect(() => {
+        let search = query ? `${query}${page}` : 'get-pagination/0'
         requestListProducts(search)
     }, [location])
+    console.log(products?.getListProduct.length, 'products.lenght')
     const classes = styles()
     return (
         <>
@@ -42,19 +42,36 @@ const listProduct = ({
                                 <Filter colors={products.colors} />
                             </Grid>
                             <Grid xs={9} item>
-                                <Products
-                                    addToCart={addToCart}
-                                    products={products}
-                                    requestListProducts={
-                                        requestListProducts
-                                    }
-                                />
+                                {products?.getListProduct.length >
+                                0 ? (
+                                    <Products
+                                        addToCart={addToCart}
+                                        products={products}
+                                        requestListProducts={
+                                            requestListProducts
+                                        }
+                                    />
+                                ) : (
+                                    <div
+                                        className="d-flex justify-content-center align-items-center"
+                                        style={{ minHeight: '365px' }}
+                                    >
+                                        {' '}
+                                        <Typography variant="h6">
+                                            Không có sản phẩm
+                                        </Typography>
+                                    </div>
+                                )}
+
                                 <Grid
                                     container
                                     justifyContent="center"
                                 >
                                     <Pagination
                                         // page={page}
+                                        query={
+                                            query || 'get-pagination/'
+                                        }
                                         totalPages={
                                             products.totalPages
                                         }

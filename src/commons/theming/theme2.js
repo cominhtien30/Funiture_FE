@@ -1,16 +1,18 @@
 import { globalStyles } from './globalStyles'
+
 import { createTheme } from '@material-ui/core/styles'
 
-const themeOptions = {
+const theme = createTheme({
+    // styles theming for project
     palette: {
         primary: {
-            main: '#ff9800',
+            main: '#4caf50',
             line: '#EEE',
             bolid: '#989696',
             title: '#2F4858',
         },
         secondary: {
-            main: '#ED7745',
+            main: '#6fbf73',
         },
         inherit: {
             main: '#e53935',
@@ -19,8 +21,6 @@ const themeOptions = {
             main: '#f57f17',
         },
     },
-    ...globalStyles('#ff9800', '#ED7745'),
-}
-
-const theme = createTheme(themeOptions)
+    ...globalStyles('#4caf50', '#6fbf73'),
+})
 export default theme

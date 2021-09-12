@@ -12,7 +12,7 @@ const styles = makeStyles((theme) => ({
     root: {
         transition: '2s',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         zIndex: theme.zIndex.tooltip,
         position: 'fixed',
         top: 0,
@@ -25,13 +25,16 @@ const styles = makeStyles((theme) => ({
         overflow: 'hidden',
 
         '& .popup-auth': {
-            position: 'relative',
-            margin: '5% auto',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
             backgroundColor: 'white',
             width: '945px',
             '& .logo-left': {
                 width: '480px',
-                height: '480px',
+                minHeight: '480px',
+                height: '100%',
             },
             '& .auth-form': {
                 height: '100%',

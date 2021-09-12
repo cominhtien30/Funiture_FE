@@ -1,6 +1,7 @@
 import api from '../../utils/api'
 import { takeLatest, call, put } from 'redux-saga/effects' //callput
 import { delayWorker, doneWorker } from './worker/loadingWorker'
+import alertWorker from './worker/alterWorker'
 // service
 import authService from '../../utils/AuthService'
 const url = 'typeProduct'
@@ -35,8 +36,11 @@ function* addCategorysWorker(action) {
             authService.uploadHaveFile(),
         )
         if (addCategorys) {
-            console.log(addCategorys, 'addCategorys')
             yield call(getCategorysWorker)
+            yield call(alertWorker, {
+                notice: true,
+                message: 'Thêm Thành Công',
+            })
         }
     } catch (error) {
         console.log(error.respones)
@@ -73,28 +77,47 @@ function* deleteCategorysWorker(action) {
         console.log(deleteCategory, 'deleteCategory')
         if (deleteCategory) {
             yield call(getCategorysWorker)
+            yield call(alertWorker, {
+                notice: true,
+                message: 'Xóa Thành Công',
+            })
         }
     } catch (error) {
         const { message } = error.response.data
         yield (error.response.status === 400 || 500) &&
-            put({
-                type: 'ALERT_CHANGE',
-                open: true,
+            call(alertWorker, {
                 notice: false,
-                patch: '',
-                status: '',
                 message,
             })
+    }
+}
+function* updateCategorysWorker(action) {
+    const { id, category } = action
+    try {
+        const updateCategory = yield api.put(
+            `${url}/update-type-product/${id}`,
+            category,
+            authService.uploadHaveFile(),
+        )
+        if (updateCategory) {
+            yield call(getCategorysWorker)
+            yield call(alertWorker, {
+                notice: true,
+                message: 'Cập Nhật Thành Công',
+            })
+        }
+    } catch (error) {
+        console.log(error, 'action')
     }
 }
 export default function* categorysWatcher() {
     // action data
     yield takeLatest('REQUEST_CATEGORY', getCategorysWorker)
-    yield takeLatest('ADD_CATEGORY', addCategorysWorker)
-    yield takeLatest('DELETE_CATEGORY', deleteCategorysWorker)
-
     yield takeLatest(
         'REQUEST_DETAIL_CATEGORY',
         getDetailCategoryWorker,
     )
+    yield takeLatest('ADD_CATEGORY', addCategorysWorker)
+    yield takeLatest('DELETE_CATEGORY', deleteCategorysWorker)
+    yield takeLatest('UPDATE_CATEGORY', updateCategorysWorker)
 }

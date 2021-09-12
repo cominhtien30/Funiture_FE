@@ -4,6 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Icon from '@material-ui/core/Icon'
 import { useNavigate } from 'react-router-dom'
+import useTheme from '@material-ui/core/styles/useTheme'
 
 const items = [
     {
@@ -57,11 +58,12 @@ export const MainListItems = () => {
                     >
                         <ListItemIcon>
                             <Icon
-                                color={`${
-                                    index == value
-                                        ? 'primary'
-                                        : 'inherit'
-                                }`}
+                                style={{
+                                    color:
+                                        index == value &&
+                                        useTheme().palette.primary
+                                            .main,
+                                }}
                             >
                                 {item.component}
                             </Icon>

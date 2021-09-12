@@ -34,3 +34,10 @@ export const deleteCategory = (id) => {
         id,
     }
 }
+export const updateCategory = (id, category) => {
+    return {
+        type: types.UPDATE_CATEGORY,
+        id,
+        category,
+    }
+}

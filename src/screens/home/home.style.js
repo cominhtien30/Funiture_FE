@@ -4,20 +4,18 @@ const styles = makeStyles((theme) => ({
     categorySection: {
         '& .item-category': {
             '& img': {
-                height: '60px',
-                width: '60px',
                 objectFit: 'contain',
             },
-            '& a': {
+            '& span': {
                 textTransform: 'capitalize',
                 paddingTop: '5px',
                 lineHeight: '16px',
-                fontWeight: 'normal',
+                fontWeight: '700',
             },
         },
         '& .item-category:hover': {
             cursor: 'pointer',
-            '& a': {
+            '& span': {
                 color: theme.palette.primary.main,
             },
         },

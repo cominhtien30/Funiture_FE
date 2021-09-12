@@ -9,10 +9,20 @@ import DataGridManagerProduct from '../../component/admin/manageProducts/dataGri
 import FormAdd from '../../component/admin/manageProducts/formAdd'
 import Modal from '@material-ui/core/Modal'
 
-export default function Dashboard({ products, requestListProducts }) {
+export default function Dashboard({
+    products,
+    requestListProducts,
+    categorys,
+    requestListCategorys,
+    addProducts,
+    requestDetailProduct,
+    updateProduct,
+    deleteProduct,
+}) {
     //requestListProducts
     useEffect(() => {
         requestListProducts()
+        requestListCategorys()
     }, [requestListProducts])
     const [checked, setChecked] = React.useState(false)
     const [openModal, setOpenModal] = React.useState(false)
@@ -48,8 +58,12 @@ export default function Dashboard({ products, requestListProducts }) {
                             />
                         </Grid>
                         <DataGridManagerProduct
+                            requestDetailProduct={
+                                requestDetailProduct
+                            }
                             handleChangeModal={handleChangeModal}
                             products={products}
+                            deleteProduct={deleteProduct}
                         />
                     </Paper>
                 </Grid>
@@ -58,7 +72,13 @@ export default function Dashboard({ products, requestListProducts }) {
                         <Paper>
                             <Title>Add New Product</Title>
                             <Grid container>
-                                <FormAdd action="add" />
+                                <FormAdd
+                                    action="add"
+                                    colors={products?.colors}
+                                    categorys={categorys}
+                                    addProducts={addProducts}
+                                    handleChangeSwitch={handleChange}
+                                />
                             </Grid>
                         </Paper>
                     </Collapse>
@@ -73,11 +93,19 @@ export default function Dashboard({ products, requestListProducts }) {
                 <Paper
                     style={{
                         width: '60%',
-                        margin: '5% auto',
+                        margin: 'auto',
                     }}
                 >
                     <Grid item xs={12} md={12} lg={12}>
-                        <FormAdd action="edit" />
+                        <FormAdd
+                            // handleModal={handleModal}
+                            handleChangeModal={handleChangeModal}
+                            action="edit"
+                            colors={products?.colors}
+                            categorys={categorys}
+                            product={products?.detail}
+                            updateProduct={updateProduct}
+                        />
                     </Grid>
                 </Paper>
             </Modal>

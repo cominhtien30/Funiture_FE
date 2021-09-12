@@ -7,7 +7,10 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import Title from '../../admin/title'
 import EditIcon from '@material-ui/icons/Edit'
 import { withTheme } from '@material-ui/core/styles'
-import { validationCategory } from '../../../utils/validation'
+import {
+    validationAddCategory,
+    validationUpdateCategory,
+} from '../../../utils/validation'
 import { useFormik } from 'formik'
 
 function FormAdd({
@@ -16,6 +19,8 @@ function FormAdd({
     theme,
     category,
     handleChangeSwitch,
+    updateCategory,
+    handleModal,
 }) {
     const [image, setImage] = useState(null)
     const ref = useRef() //use ref to reset input
@@ -24,7 +29,10 @@ function FormAdd({
             name: ``,
             image: '',
         },
-        validationSchema: validationCategory,
+        validationSchema:
+            action === 'edit'
+                ? validationUpdateCategory
+                : validationAddCategory,
         onSubmit: (values) => {
             const formData = new FormData()
             formData.append('typeproducts', values.image)
@@ -39,6 +47,7 @@ function FormAdd({
             setImage(category?.imagesTypeProduct)
             //set nameTypeProduct from state category to formik value
             formik.setFieldValue('name', category.nameTypeProduct)
+            formik.setFieldValue('image', category.imagesTypeProduct)
         }
     }, [category])
 
@@ -51,9 +60,16 @@ function FormAdd({
         formik.setFieldValue(name, file) //set formik image
     }
     const handleSubmit = async (formData) => {
-        await addCategorys(formData) //action add category
+        if (action === 'edit') {
+            await updateCategory(category?.id, formData) //action add update
+            handleModal(false)
+        } else {
+            await addCategorys(formData) //action add category
+        }
+        // reset
         handleChangeSwitch(false) //turn off switch
         formik.resetForm()
+        setImage(null)
         ref.current.value = null //reset input file
     }
     return (

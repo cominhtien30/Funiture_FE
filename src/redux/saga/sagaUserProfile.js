@@ -30,9 +30,9 @@ function* updateProfileWorker(action) {
         yield call(delayWorker)
         const update = yield call(callUpdateProfile, action)
         if (update) {
+            yield call(doneWorker)
             //neu thanh cong thi dis patch alter thanh cong
             const { message } = update.data
-            console.log(message, 'message')
             yield put({
                 type: 'ALERT_CHANGE',
                 open: true,
@@ -41,7 +41,6 @@ function* updateProfileWorker(action) {
                 patch: '',
                 message,
             })
-            yield call(doneWorker)
         }
     } catch (error) {
         //neu that bai dispatch alert that bai

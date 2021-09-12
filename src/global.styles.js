@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles'
+
 const GlobalCss = withStyles({
     '@global': {
         '.width-layout': {
@@ -21,12 +22,12 @@ const GlobalCss = withStyles({
             color: 'black',
             textDecoration: 'none',
         },
-        'a:hover': {
-            color: '#ff9800',
-        },
-        'i:hover': {
-            color: '#ff9800',
-        },
+        // 'a:hover': {
+        //     color: '#ff9800',
+        // },
+        // 'i:hover': {
+        //     color: '#ff9800',
+        // },
         img: {
             objectFit: 'cover ! important',
         },

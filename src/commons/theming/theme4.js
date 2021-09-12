@@ -4,13 +4,13 @@ import { createTheme } from '@material-ui/core/styles'
 const themeOptions = {
     palette: {
         primary: {
-            main: '#ff9800',
+            main: '#0d47a1',
             line: '#EEE',
             bolid: '#989696',
             title: '#2F4858',
         },
         secondary: {
-            main: '#ED7745',
+            main: '#1565c0',
         },
         inherit: {
             main: '#e53935',
@@ -19,7 +19,7 @@ const themeOptions = {
             main: '#f57f17',
         },
     },
-    ...globalStyles('#ff9800', '#ED7745'),
+    ...globalStyles('#0d47a1', '#1565c0'),
 }
 
 const theme = createTheme(themeOptions)

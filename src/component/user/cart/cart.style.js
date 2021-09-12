@@ -11,7 +11,7 @@ const styles = makeStyles((theme) => ({
             borderRadius: '10px',
             '&:hover': {
                 cursor: 'pointer',
-                backgroundColor: theme.palette.primary.title,
+                backgroundColor: theme.palette.secondary.main,
             },
         },
     },

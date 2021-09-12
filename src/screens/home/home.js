@@ -4,34 +4,19 @@ import { useNavigate } from 'react-router-dom'
 import Carousel from '../../component/user/home/carousel/carousel'
 import { Grid, Typography } from '@material-ui/core'
 import styles from './home.style'
-import archive from '../../assets/images/category/archive.png'
-import chair from '../../assets/images/category/armchair.png'
-import beds from '../../assets/images/category/bed.png'
-import book from '../../assets/images/category/book.png'
-import cupboard from '../../assets/images/category/cupboard.png'
-import decor from '../../assets/images/category/decor.png'
-import dinner from '../../assets/images/category/dinner.png'
-import study from '../../assets/images/category/graduation-hat.png'
-import mattress from '../../assets/images/category/mattress.png'
-import TVunit from '../../assets/images/category/mobile-unit.png'
-import storage from '../../assets/images/category/packages.png'
-import recliner from '../../assets/images/category/recliner.png'
-import shoerack from '../../assets/images/category/shoe-rack.png'
-import sofa from '../../assets/images/category/sofa.png'
-import all from '../../assets/images/category/square.png'
-import coffetable from '../../assets/images/category/table.png'
+import all from '../../assets/images/category/all.png'
 import Loading from '../../commons/loading'
 
-const Home = () => {
+const Home = ({ categorys, requestListCategorys }) => {
     let navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 2000)
+            requestListCategorys()
+        }, 1500)
     }, [])
-
     const classes = styles()
     return (
         <>
@@ -53,140 +38,44 @@ const Home = () => {
                 </Grid>
                 <Grid container>
                     <Grid container spacing={3}>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={archive} alt="" />
-                                <a href="" className="d-flex">
-                                    Archive
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={chair} alt="" />
-                                <a href="" className="d-flex">
-                                    Chair
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={beds} alt="" />
-                                <a href="" className="d-flex">
-                                    beds
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={book} alt="" />
-                                <a href="" className="d-flex">
-                                    bookshelves
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={cupboard} alt="" />
-                                <a href="" className="d-flex">
-                                    cupboard
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={decor} alt="" />
-                                <a href="" className="d-flex">
-                                    decor
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={recliner} alt="" />
-                                <a href="" className="d-flex">
-                                    recliner
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={coffetable} alt="" />
-                                <a href="" className="d-flex">
-                                    coffetable
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            {' '}
-                            {/* <Grid xs={12} container justifyContent="space-between" alignContent="center" > */}
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={dinner} alt="" />
-                                <a href="" className="d-flex">
-                                    dinner
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={study} alt="" />
-                                <a href="" className="d-flex">
-                                    study
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={mattress} alt="" />
-                                <a href="" className="d-flex">
-                                    mattress
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={TVunit} alt="" />
-                                <a href="" className="d-flex">
-                                    TVunit
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={storage} alt="" />
-                                <a href="" className="d-flex">
-                                    storage
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={shoerack} alt="" />
-                                <a href="" className="d-flex">
-                                    shoerack
-                                </a>
-                            </div>
-                        </Grid>
-                        <Grid xs={2} item>
-                            <div className="item-category d-flex align-items-center flex-column">
-                                <img src={sofa} alt="" />
-                                <a href="" className="d-flex">
-                                    sofa
-                                </a>
-                            </div>
-                        </Grid>
+                        {categorys?.listCategory.map(
+                            (item, index) => {
+                                return (
+                                    <Grid
+                                        xs={2}
+                                        item
+                                        key={index}
+                                        onClick={() =>
+                                            navigate(
+                                                `/products?api=get-flow-type-product/${item?.id}/page/&page=0`,
+                                            )
+                                        }
+                                    >
+                                        <div className="item-category d-flex align-items-center flex-column">
+                                            <img
+                                                src={
+                                                    item?.imagesTypeProduct
+                                                }
+                                                alt=""
+                                            />
+                                            <span className="d-flex">
+                                                {
+                                                    item?.nameTypeProduct
+                                                }
+                                            </span>
+                                        </div>
+                                    </Grid>
+                                )
+                            },
+                        )}
+
                         <Grid xs={2} item>
                             <div
                                 onClick={() => navigate('/products')}
                                 className="item-category d-flex align-items-center flex-column"
                             >
                                 <img src={all} alt="" />
-                                <a
-                                    href="#javascript()"
-                                    className="d-flex"
-                                >
-                                    all
-                                </a>
+                                <span className="d-flex">all</span>
                             </div>
                         </Grid>
                     </Grid>

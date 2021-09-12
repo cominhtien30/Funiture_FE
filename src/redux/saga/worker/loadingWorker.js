@@ -7,10 +7,6 @@ export function* delayWorker() {
         open: true,
     })
     yield delay(1000)
-    yield put({
-        type: 'LOADING_CHANGE',
-        open: false,
-    })
 }
 export function* doneWorker() {
     yield put({

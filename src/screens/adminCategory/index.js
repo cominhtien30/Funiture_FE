@@ -15,6 +15,7 @@ export default function AdminCategory({
     addCategorys,
     requestDetailCategory,
     deleteCategory,
+    updateCategory,
 }) {
     //requestListProducts
     useEffect(() => {
@@ -31,7 +32,9 @@ export default function AdminCategory({
         setOpenModal(open)
         open && requestDetailCategory(idCat)
     }
-
+    const handleModal = (open) => {
+        setOpenModal(open)
+    }
     return (
         <>
             <Grid container spacing={3} alignItems="center">
@@ -93,7 +96,9 @@ export default function AdminCategory({
                     <Grid item xs={12} md={12} lg={12}>
                         <FormAdd
                             action="edit"
+                            handleModal={handleModal}
                             category={categorys?.detail}
+                            updateCategory={updateCategory}
                         />
                     </Grid>
                 </Paper>

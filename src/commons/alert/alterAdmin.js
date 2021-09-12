@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Box, Grid, Typography } from '@material-ui/core'
 import * as actionAlert from '../../redux/actions/alertAction'
-
 import styles from './styles'
 
 const AlterAdmin = ({ openAlert, alertChange }) => {
@@ -20,7 +19,7 @@ const AlterAdmin = ({ openAlert, alertChange }) => {
             })
         }, 1000)
     }
-
+    console.log(openAlert.notice, 'openAlert.notice')
     const classes = styles({
         success: openAlert.notice,
     })

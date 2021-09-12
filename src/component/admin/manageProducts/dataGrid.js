@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     DataGrid,
     GridOverlay,
@@ -8,12 +8,31 @@ import {
     GridToolbarFilterButton,
 } from '@mui/x-data-grid'
 import { makeStyles } from '@material-ui/styles'
+import DialogDelete from './dialogDelete'
 
 // import { DataGrid, GridOverlay } from '@material-ui/data-grid'
 import { LinearProgress } from '@material-ui/core'
 import { withTheme } from '@material-ui/core'
 
-const DataGridProduct = ({ theme, handleChangeModal, products }) => {
+const DataGridProduct = ({
+    theme,
+    handleChangeModal,
+    products,
+    requestDetailProduct,
+    deleteProduct,
+}) => {
+    const [openDialog, setOpenDialog] = useState({
+        open: false,
+        id: null,
+    })
+    // when open diaglog , will set open:true and id:id_Category
+    const handleOpenDialog = (open, id = null) => {
+        setOpenDialog({ ...openDialog, open, id })
+    }
+    const handleDetail = (id) => {
+        requestDetailProduct(id)
+        handleChangeModal(true)
+    }
     const cellImage = (img) => {
         const style = {
             objectFit: 'cover',
@@ -36,7 +55,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
             <div className="d-flex justify-content-between">
                 <a
                     key={id}
-                    onClick={() => handleChangeModal(true)}
+                    onClick={() => handleDetail(id)}
                     href="#javasctipt()"
                     style={{
                         color: 'green',
@@ -47,6 +66,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
                 </a>
                 <a
                     href="#javasctipt()"
+                    onClick={() => handleOpenDialog(true, id)}
                     style={{
                         color: 'red',
                         margin: '0 5px',
@@ -148,7 +168,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
     ]
 
     const rows = products.getAllProduct.map((item, index) => ({
-        id: index,
+        id: item.id,
         name: item?.nameProduct,
         description: item?.description,
         price: item?.price,
@@ -177,7 +197,7 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
                     // hideFooterPagination
                     loading={products ? false : true}
                     components={{
-                        Toolbar: CustomToolbar,
+                        Toolbar: () => CustomToolbar(theme),
                         LoadingOverlay: CustomLoadingOverlay,
                         NoRowsOverlay: CustomNoRowsOverlay,
                     }}
@@ -185,16 +205,27 @@ const DataGridProduct = ({ theme, handleChangeModal, products }) => {
                     // loading
                 />
             </div>
+            <DialogDelete
+                openDialog={openDialog}
+                handleOpenDialog={handleOpenDialog}
+                deleteProduct={deleteProduct}
+            />
         </>
     )
 }
 
-function CustomToolbar() {
+function CustomToolbar(theme) {
     return (
         <GridToolbarContainer>
-            <GridToolbarFilterButton />
-            <GridToolbarDensitySelector />
-            <GridToolbarExport />
+            <GridToolbarFilterButton
+                style={{ color: theme.palette.primary.main }}
+            />
+            <GridToolbarDensitySelector
+                style={{ color: theme.palette.primary.main }}
+            />
+            <GridToolbarExport
+                style={{ color: theme.palette.primary.main }}
+            />
         </GridToolbarContainer>
     )
 }
@@ -202,14 +233,6 @@ const useStyles = makeStyles(() => ({
     root: {
         '& .MuiButton-text': {
             backgroundColor: 'white',
-        },
-        '& .MuiPaper-root': {
-            '& .MuiGridPanelFooter-root': {
-                backgroundColor: 'red',
-                '& .MuiButtonBase-root': {
-                    color: 'white',
-                },
-            },
         },
     },
 }))

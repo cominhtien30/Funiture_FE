@@ -7,6 +7,7 @@ import { withTheme } from '@material-ui/core/styles'
 
 const filter = ({ colors }) => {
     const classes = styles()
+    console.log(colors, 'colors')
     return (
         <>
             <div className={`${classes.root} filter-product`}>

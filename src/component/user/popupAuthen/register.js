@@ -39,11 +39,7 @@ const Register = ({
             <div className="popup-auth">
                 <Grid container>
                     <Grid item xs={6} spacing={3}>
-                        <img
-                            className="logo-left"
-                            src={logo}
-                            alt=""
-                        />
+                        <img className="logo-left" src={logo} />
                     </Grid>
                     <Grid item xs={6}>
                         <div className={`${classes.form} auth-form`}>
@@ -213,7 +209,7 @@ const Register = ({
                                 </FormControl>
 
                                 <FormControl
-                                    className={` d-flex justify-content-center align-items-center mt-3`}
+                                    className={` d-flex justify-content-center align-items-center mt-3 mb-3`}
                                     color="secondary"
                                 >
                                     <Button
@@ -241,7 +237,7 @@ const Register = ({
                                 <div className="info-form ">
                                     Social Login
                                 </div>
-                                <div className="buttons-social d-flex justify-content-between mt-2">
+                                <div className="buttons-social d-flex justify-content-between mt-3 mb-3">
                                     <BtnFacebook
                                         requestLoginSocial={
                                             requestLoginSocial

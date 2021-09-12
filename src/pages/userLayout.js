@@ -20,7 +20,7 @@ import Login from '../container/login'
 import Register from '../container/register'
 import Alert from '../commons/alert'
 // ----global
-import GlobalCss from '../global.styles'
+// import GlobalCss from '../global.styles'
 function App({
     openSignIn,
     handleOpenSignIn,
@@ -84,7 +84,7 @@ function App({
                 {/* layout user */}
                 {/* -------------------------- */}
                 {/* css global*/}
-                <GlobalCss />
+                {/* <GlobalCss /> */}
                 {/* -------------------------- */}
                 <Header handleOpenSignIn={handleOpenSignIn} />
                 <div className="container-fluid">

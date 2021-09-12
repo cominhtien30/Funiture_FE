@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 
 const Products = ({ products, addToCart }) => {
+    console.log(products, 'products')
     return (
         <>
             <div className={`list-product`}>
@@ -25,7 +26,11 @@ const Products = ({ products, addToCart }) => {
                                         <CardProduct
                                             addToCart={addToCart}
                                             id={item.id}
-                                            color={item.color}
+                                            color={
+                                                item
+                                                    ?.colorFlowProducts
+                                                    ?.colorCode
+                                            }
                                             price={item.price}
                                             nameProduct={
                                                 item.nameProduct

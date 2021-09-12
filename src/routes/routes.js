@@ -5,7 +5,7 @@ import LayoutUser from '../container/layoutUser'
 import LayoutAdmin from '../container/layoutAdmin'
 // screens
 // user
-import Home from '../screens/home/home'
+import Home from '../container/userHome'
 import Products from '../container/userProducts'
 import Cart from '../container/userCart'
 import Checkout from '../screens/checkout/checkout'
@@ -17,6 +17,8 @@ import Error from '../screens/user404'
 import Dashboard from '../screens/adminDashboard/adminDashboard'
 import ManageProducts from '../container/adminProduct'
 import ManageCategorys from '../container/adminCategory'
+import ManageColors from '../screens/adminColors'
+
 // AuthService
 import AuthService from '../utils/AuthService'
 
@@ -105,6 +107,10 @@ export default function Router() {
                 {
                     path: 'categorys',
                     element: <ManageCategorys />,
+                },
+                {
+                    path: 'colors',
+                    element: <ManageColors />,
                 },
             ],
         },

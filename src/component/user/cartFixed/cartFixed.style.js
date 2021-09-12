@@ -60,9 +60,10 @@ const styles = makeStyles((theme) => ({
         height: '52px',
         zIndex: theme.zIndex.tooltip + 1,
         cursor: 'pointer',
-        '&:hover': {
-            '& a': {
-                color: theme.palette.primary.main,
+
+        '& span:hover': {
+            '& i:hover': {
+                color: `${theme.palette.secondary.main}`,
             },
         },
         '& .coutItemAnimation': {

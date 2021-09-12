@@ -30,8 +30,6 @@ const DataGridProduct = ({
     const cellImage = (img) => {
         const style = {
             objectFit: 'cover',
-            width: '60px',
-            height: '40px',
         }
         return <img src={img} style={style} />
     }
@@ -110,7 +108,7 @@ const DataGridProduct = ({
         {
             field: 'typeproducts',
             headerName: 'image',
-            width: 280,
+            width: 220,
             renderCell: (param) => {
                 return cellImage(param.row.typeproducts)
             },
@@ -118,7 +116,7 @@ const DataGridProduct = ({
         {
             field: 'col8',
             headerName: 'Action',
-            width: 110,
+            width: 200,
             headerAlign: 'center',
             align: 'center',
             renderCell: (param) => {

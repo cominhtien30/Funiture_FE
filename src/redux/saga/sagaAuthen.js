@@ -5,6 +5,7 @@ const url = 'user'
 
 // login
 function* loginWorker(action) {
+    yield call(doneWorker)
     try {
         yield call(delayWorker)
         const handleLogin = yield api.post(`${url}/login-user`, {
@@ -13,7 +14,6 @@ function* loginWorker(action) {
         })
 
         if (handleLogin) {
-            yield call(doneWorker)
             console.log(handleLogin, 'handleLogin')
             const { message } = handleLogin.data
             yield call(isLoginSuccessWorker, handleLogin.data)
@@ -38,16 +38,18 @@ function* loginWorker(action) {
                 message,
             })
     }
+    yield call(doneWorker)
 }
 // login social
 function* loginSocialWorker(action) {
+    yield call(delayWorker)
+
     try {
         const { user } = action
         const handleLogin = yield api.post(
             `${url}/login-user-social`,
             { user },
         )
-        yield call(delayWorker)
         if (handleLogin) {
             const { message } = handleLogin.data
             yield call(isLoginSuccessWorker, handleLogin.data)
@@ -72,14 +74,16 @@ function* loginSocialWorker(action) {
                 message,
             })
     }
+    yield call(doneWorker)
 }
 // login social
 function* registerWorker(action) {
+    yield call(delayWorker)
     try {
         const handleRegister = yield api.post(`${url}/create-user`, {
             ...action.newUser,
         })
-        yield call(delayWorker)
+
         if (handleRegister) {
             yield put({
                 type: 'ALERT_CHANGE',
@@ -101,6 +105,7 @@ function* registerWorker(action) {
                 message: 'có lỗi xảy ra !',
             })
     }
+    yield call(doneWorker)
 }
 //--------------------------------
 // set localStoreage

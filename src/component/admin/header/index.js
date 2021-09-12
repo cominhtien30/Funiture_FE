@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react' //
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
+// import Badge from '@material-ui/core/Badge'
 import MenuIcon from '@material-ui/icons/Menu'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+// import NotificationsIcon from '@material-ui/icons/Notifications'
+// import WbSunnyIcon from '@material-ui/icons/WbSunny'
+import { CustomThemeContext } from '../../../App'
+import useTheme from '@material-ui/core/styles/useTheme'
+import ColorLensIcon from '@material-ui/icons/ColorLens'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 const drawerWidth = 240
 
@@ -16,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 24, // keep right padding when drawer closed
     },
     appBar: {
+        backgroundColor: useTheme().palette.primary.main,
         minHeight: 'auto ! important',
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
@@ -45,7 +52,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
     const classes = useStyles()
     const { open, handleDrawerOpen } = props
+    const themes = [
+        { value: 'theme1', label: 'Orange' },
+        { value: 'theme2', label: 'Green' },
+        { value: 'theme3', label: 'Red' },
+        { value: 'theme4', label: 'Blue' },
+        { value: 'theme5', label: 'Pink' },
+    ]
+    const { currentTheme, setTheme } = useContext(CustomThemeContext)
 
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleChooseTheme = (theme) => {
+        setTheme(theme)
+        setAnchorEl(null)
+    }
     return (
         <AppBar
             position="absolute"
@@ -76,11 +101,42 @@ export default function Header(props) {
                 >
                     T-Funiture Dashboard
                 </Typography>
-                <IconButton color="inherit">
+                {/* <IconButton color="inherit">
                     <Badge badgeContent={4} color="secondary">
                         <NotificationsIcon />
                     </Badge>
-                </IconButton>
+                </IconButton> */}
+                <ColorLensIcon
+                    onClick={handleClick}
+                    fontSize="large"
+                    style={{ cursor: 'pointer', color: 'white' }}
+                />
+
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={() => setAnchorEl(null)}
+                >
+                    {themes.map((item, index) => {
+                        return (
+                            <MenuItem
+                                key={index}
+                                selected={
+                                    item.value === currentTheme
+                                        ? true
+                                        : false
+                                }
+                                onClick={() =>
+                                    handleChooseTheme(item.value)
+                                }
+                            >
+                                {item.label}
+                            </MenuItem>
+                        )
+                    })}
+                </Menu>
             </Toolbar>
         </AppBar>
     )

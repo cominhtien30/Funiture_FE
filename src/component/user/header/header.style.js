@@ -11,10 +11,16 @@ const styles = makeStyles((theme) => ({
                     lineHeight: 1,
                     justifyContent: 'space-between',
                     '& .featuredLinksBar__link': {
+                        cursor: 'pointer',
                         margin: '0 10px',
-
+                        '&:hover': {
+                            color: theme.palette.primary.main,
+                        },
                         '& i': {
                             marginRight: '5px',
+                        },
+                        '& i:hover': {
+                            color: theme.palette.primary.main,
                         },
                     },
                 },
@@ -42,6 +48,7 @@ const styles = makeStyles((theme) => ({
                 '& .top_bar_center': {
                     width: '100%',
                     '& .input_search': {
+                        position: 'relative',
                         color: theme.palette.primary.bolid,
                         width: '100%',
                         borderRadius: '5px',
@@ -62,6 +69,37 @@ const styles = makeStyles((theme) => ({
                                 fontSize: '15px',
                             },
                         },
+                        '& .result_search': {
+                            position: 'absolute',
+                            top: '100%',
+                            zIndex: 9999999,
+                            width: '100%',
+                            backgroundColor: 'white',
+                            transition: 'opacity 0.5s',
+                            border: `2px ${theme.palette.primary.main} solid `,
+                            '& .result_search_content': {
+                                '& .result_search_content_body': {
+                                    '& .result_search_content_body_item':
+                                        {
+                                            border: `1px ${theme.palette.primary.line} solid`,
+                                            transition: 'all 0.3s',
+                                            '& .image-product': {
+                                                '& img': {
+                                                    height: '68px',
+                                                    width: '128px',
+                                                },
+                                            },
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                backgroundColor: `${theme.palette.primary.main}`,
+                                                '& .info-product': {
+                                                    color: 'white !important',
+                                                },
+                                            },
+                                        },
+                                },
+                            },
+                        },
                     },
                 },
                 // end top_bar_center
@@ -72,6 +110,9 @@ const styles = makeStyles((theme) => ({
                         '& .item-icon': {
                             marginLeft: '15px',
                             position: 'relative',
+                            '& i:hover': {
+                                color: theme.palette.primary.main,
+                            },
                             '& .count': {
                                 color: '#ffffff',
                                 whiteSpace: 'nowrap',

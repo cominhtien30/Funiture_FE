@@ -1,17 +1,50 @@
 // @flow
-import React from 'react'
+import React, { useState, useContext } from 'react' //useState
 import styles from './header.style'
 import { InputBase } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
+import { CustomThemeContext } from '../../../App'
+import ColorLensIcon from '@material-ui/icons/ColorLens'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Cart from './cart/cart'
 import Heart from './heart/heart'
 import logo1 from '../../../assets/images/logo/logo1.png'
 import Navigation from './navigation/navigation'
 import DropDownUser from './dropdown/dropdownUser'
+// import product from '../../../assets/images/products/product.jpg'
+// import { Typography } from '@material-ui/core'
+
+import { usePrompt } from 'react-router-dom'
 
 const Header = ({ handleOpenSignIn }) => {
-    const classes = styles() //style
+    const [prompt, setPrompt] = useState(false)
+    const handleChange = (e) => {
+        const { value } = e.target
+        value !== '' ? setPrompt(true) : setPrompt(false)
+    }
+    const classes = styles({ prompt }) //style
+    usePrompt('Are you sure you want to leave?', prompt)
+    ///
+    const themes = [
+        { value: 'theme1', label: 'Orange' },
+        { value: 'theme2', label: 'Green' },
+        { value: 'theme3', label: 'Red' },
+        { value: 'theme4', label: 'Blue' },
+        { value: 'theme5', label: 'Pink' },
+    ]
+    const { currentTheme, setTheme } = useContext(CustomThemeContext)
 
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleChooseTheme = (theme) => {
+        setTheme(theme)
+        setAnchorEl(null)
+    }
     return (
         <>
             <header className={`${classes.root} header`}>
@@ -43,24 +76,62 @@ const Header = ({ handleOpenSignIn }) => {
                         <div
                             className={`${classes.row}  featuredLinksBar__links`}
                         >
-                            <a
-                                href=""
+                            <span
                                 className={`${classes.row} featuredLinksBar__link`}
                             >
                                 Store
-                            </a>
-                            <a
-                                href=""
+                            </span>
+                            <span
                                 className={`${classes.row} featuredLinksBar__link`}
                             >
                                 Bulk Order
-                            </a>
-                            <a
-                                href=""
+                            </span>
+                            <span
                                 className={`${classes.row} featuredLinksBar__link`}
                             >
                                 Giift Cards
-                            </a>
+                            </span>
+                            <span
+                                className={`${classes.row} featuredLinksBar__link`}
+                            >
+                                <ColorLensIcon
+                                    onClick={handleClick}
+                                    fontSize="large"
+                                    style={{
+                                        cursor: 'pointer',
+                                        color: 'black',
+                                    }}
+                                />
+                                <Menu
+                                    id="simple-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    style={{ zIndex: 99999 }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={() => setAnchorEl(null)}
+                                >
+                                    {themes.map((item, index) => {
+                                        return (
+                                            <MenuItem
+                                                key={index}
+                                                selected={
+                                                    item.value ===
+                                                    currentTheme
+                                                        ? true
+                                                        : false
+                                                }
+                                                onClick={() =>
+                                                    handleChooseTheme(
+                                                        item.value,
+                                                    )
+                                                }
+                                            >
+                                                {item.label}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                </Menu>
+                            </span>
                         </div>
                     </div>
                 </section>
@@ -98,7 +169,36 @@ const Header = ({ handleOpenSignIn }) => {
                                     inputProps={{
                                         'aria-label': 'search',
                                     }}
+                                    onChange={handleChange}
                                 />
+                                {/* <div className="result_search">
+                                    <div className="result_search_content p-2">
+                                        <div className="d-flex w-100 justify-content-between align-items-center  result_search_content_header">
+                                            <span>
+                                                Search Result :
+                                            </span>
+                                            <i className="fa fa-times"></i>
+                                        </div>
+                                        <div className=" w-100   mt-2 result_search_content_body">
+                                            <div className="d-flex result_search_content_body_item">
+                                                <div className="image-product p-2">
+                                                    <img
+                                                        className="flex-grow-1"
+                                                        src={product}
+                                                    />
+                                                </div>
+                                                <div className="d-flex justify-content-center flex-grow-1 flex-column info-product">
+                                                    <Typography variant="h6">
+                                                        Bàn Cao Cấp
+                                                    </Typography>
+                                                    <Typography variant="subtitle1">
+                                                        200$
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> */}
                             </div>
                         </div>
                         <div

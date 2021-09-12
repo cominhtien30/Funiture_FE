@@ -30,13 +30,88 @@ export const validationUpdateUser = Yup.object({
         .required('Account is required')
         .email('Enter a valid email'),
 })
-export const validationCategory = Yup.object({
+export const validationAddCategory = Yup.object({
     name: Yup.string('Enter your name category')
         .required('name is required')
         .min(5, 'Name should be of minimum 5 characters length'),
     image: Yup.string('Enter your name category').required(
         'image is required',
     ),
+})
+export const validationUpdateCategory = Yup.object({
+    name: Yup.string('Enter your name category')
+        .required('name is required')
+        .min(5, 'Name should be of minimum 5 characters length'),
+})
+export const validationAddProduct = Yup.object({
+    nameProduct: Yup.string('Enter your nameProduct')
+        .required('nameProduct is required')
+        .min(5, 'Name should be of minimum 5 characters length')
+        .max(100, 'Name should be of maximum 100 characters length'),
+    description: Yup.string('Enter your name description')
+        .required('description is required')
+        .min(
+            10,
+            'description should be of minimum 10 characters length',
+        ),
+    image: Yup.string('Enter your  image').required(
+        'image is required',
+    ),
+    colorProductsID: Yup.string(
+        'Enter your name colorProductsID',
+    ).required('color is required'),
+
+    price: Yup.number()
+        .min(9999, 'price should be of minimum 5 characters length')
+        .max(
+            10000000000000000000,
+            'price should be of maximum 20  characters length',
+        )
+        .required('price is required')
+        .typeError('you must specify a number'),
+    quantityProducts: Yup.number()
+        .max(
+            10000000000000000000,
+            'quantityProducts should be of maximum 20  characters length',
+        )
+        .required('quantityProducts is required')
+        .typeError('you must specify a number'),
+    productFlowTypeID: Yup.number()
+        .required('productFlowTypeID is required')
+        .typeError('you must specify a number'),
+})
+export const validationUpdateProduct = Yup.object({
+    nameProduct: Yup.string('Enter your nameProduct')
+        .required('nameProduct is required')
+        .min(5, 'Name should be of minimum 5 characters length')
+        .max(100, 'Name should be of maximum 100 characters length'),
+    colorProductsID: Yup.string('Enter your name category').required(
+        'color is required',
+    ),
+    description: Yup.string('Enter your  description')
+        .required('description is required')
+        .min(
+            10,
+            'description should be of minimum 10 characters length',
+        ),
+    price: Yup.number()
+        .min(9999, 'price should be of minimum 5 characters length')
+        .max(
+            10000000000000000000,
+            'price should be of maximum 20  characters length',
+        )
+        .required('price is required')
+        .typeError('you must specify a number'),
+    quantityProducts: Yup.number()
+        .max(
+            10000000000000000000,
+            'quantityProducts should be of maximum 20  characters length',
+        )
+        .required('quantityProducts is required')
+        .typeError('you must specify a number'),
+    productFlowTypeID: Yup.number()
+        .required('productFlowTypeID is required')
+        .typeError('you must specify a number'),
 })
 export function validateEmail(email) {
     const re =
