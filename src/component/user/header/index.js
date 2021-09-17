@@ -12,20 +12,31 @@ import Heart from './heart/heart'
 import logo1 from '../../../assets/images/logo/logo1.png'
 import Navigation from './navigation/navigation'
 import DropDownUser from './dropdown/dropdownUser'
-// import product from '../../../assets/images/products/product.jpg'
-// import { Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { clearSearchProduct } from '../../../redux/actions/productsAction'
 
 import { usePrompt } from 'react-router-dom'
 
-const Header = ({ handleOpenSignIn }) => {
+const Header = ({
+    handleOpenSignIn,
+    searchProduct,
+    requestSearch,
+}) => {
+    const dispatch = useDispatch()
     const [prompt, setPrompt] = useState(false)
     const handleChange = (e) => {
         const { value } = e.target
+        value !== ''
+            ? requestSearch(value)
+            : dispatch(clearSearchProduct())
+
         value !== '' ? setPrompt(true) : setPrompt(false)
     }
     const classes = styles({ prompt }) //style
     usePrompt('Are you sure you want to leave?', prompt)
     ///
+    console.log(searchProduct, 'searchProduct')
     const themes = [
         { value: 'theme1', label: 'Orange' },
         { value: 'theme2', label: 'Green' },
@@ -171,34 +182,67 @@ const Header = ({ handleOpenSignIn }) => {
                                     }}
                                     onChange={handleChange}
                                 />
-                                {/* <div className="result_search">
-                                    <div className="result_search_content p-2">
-                                        <div className="d-flex w-100 justify-content-between align-items-center  result_search_content_header">
-                                            <span>
-                                                Search Result :
-                                            </span>
-                                            <i className="fa fa-times"></i>
-                                        </div>
-                                        <div className=" w-100   mt-2 result_search_content_body">
-                                            <div className="d-flex result_search_content_body_item">
-                                                <div className="image-product p-2">
-                                                    <img
-                                                        className="flex-grow-1"
-                                                        src={product}
-                                                    />
-                                                </div>
-                                                <div className="d-flex justify-content-center flex-grow-1 flex-column info-product">
-                                                    <Typography variant="h6">
-                                                        Bàn Cao Cấp
-                                                    </Typography>
-                                                    <Typography variant="subtitle1">
-                                                        200$
-                                                    </Typography>
-                                                </div>
+                                {searchProduct.length > 0 && (
+                                    <div className="result_search">
+                                        <div className="result_search_content p-2">
+                                            <div className="d-flex w-100 justify-content-between align-items-center  result_search_content_header">
+                                                <span>
+                                                    Search Result :
+                                                </span>
+                                                <i
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            clearSearchProduct(),
+                                                        )
+                                                    }
+                                                    style={{
+                                                        cursor: 'pointer',
+                                                    }}
+                                                    className="fa fa-times"
+                                                ></i>
+                                            </div>
+                                            <div className=" w-100   mt-2 result_search_content_body">
+                                                {searchProduct.map(
+                                                    (
+                                                        product,
+                                                        index,
+                                                    ) => {
+                                                        return (
+                                                            <div
+                                                                key={
+                                                                    index
+                                                                }
+                                                                className="d-flex result_search_content_body_item"
+                                                            >
+                                                                <div className="image-product p-2">
+                                                                    <img
+                                                                        className="flex-grow-1"
+                                                                        src={
+                                                                            product?.picturesZero
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                <div className="d-flex justify-content-center flex-grow-1 flex-column info-product">
+                                                                    <Typography variant="h6">
+                                                                        {
+                                                                            product?.nameProduct
+                                                                        }
+                                                                    </Typography>
+                                                                    <Typography variant="subtitle1">
+                                                                        {
+                                                                            product?.price
+                                                                        }{' '}
+                                                                        VND
+                                                                    </Typography>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    },
+                                                )}
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
+                                )}
                             </div>
                         </div>
                         <div

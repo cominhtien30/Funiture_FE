@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useState } from 'react'
 import { withTheme } from '@material-ui/core/styles'
 import ProcessStep from '../../component/user/processStep'
 import MuiPhoneNumber from 'material-ui-phone-number'
@@ -10,11 +10,46 @@ import {
     Grid,
     TextField,
     Box,
+    Paper,
 } from '@material-ui/core'
+import Collapse from '@material-ui/core/Collapse'
+import { validationCheckout } from '../../utils/validation'
+import { useFormik } from 'formik'
+import { Motion, spring, presets } from 'react-motion'
 import ImagesPayment from '../../component/user/imagesPayment'
-import product from '../../assets/images/products/product.jpg'
+import Paypal from '../../component/user/checkout/paypelComponent'
+import Overlay from '../../commons/overlay/overlay'
+import { useNavigate } from 'react-router-dom'
+import { clearCart } from '../../redux/actions/cartAction'
+import { useDispatch } from 'react-redux'
 
-const Checkout = () => {
+const Checkout = ({ cart, total }) => {
+    const dispatch = useDispatch()
+    let navigate = useNavigate()
+    const [checkout, setCheckout] = useState({})
+    const [paypal, setPaypal] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
+    const handleSuccess = (success) => {
+        setIsSuccess(success)
+    }
+    const handleDoneOrder = () => {
+        setIsSuccess(false)
+        dispatch(clearCart())
+        navigate('/profile')
+    }
+    const formik = useFormik({
+        initialValues: {
+            zipcode: ``,
+            addresss: '',
+            numberPhone: '',
+        },
+        validationSchema: validationCheckout,
+        onSubmit: (values) => {
+            setCheckout(values)
+            setPaypal(true)
+        },
+    })
+
     return (
         <>
             <div
@@ -37,15 +72,31 @@ const Checkout = () => {
                             </Typography>
                             <form
                                 action=""
-                                className="d-flex justify-content-center align-items-center"
+                                className="d-flex justify-content-center align-items-center h-100"
                             >
-                                <div className="d-flex flex-wrap">
+                                <div className="d-flex flex-column justify-content-around  w-100">
                                     <TextField
                                         fullWidth
                                         id="standard-basic"
-                                        label="email"
+                                        label="ZipCode"
                                         required
                                         margin="normal"
+                                        name="zipcode"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.zipcode}
+                                        error={
+                                            formik.touched.zipcode &&
+                                            formik.errors.zipcode
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            formik.touched.zipcode &&
+                                            formik.errors.zipcode
+                                                ? formik.errors
+                                                      .zipcode
+                                                : ''
+                                        }
                                     />
                                     <TextField
                                         fullWidth
@@ -53,28 +104,55 @@ const Checkout = () => {
                                         label="Address"
                                         required
                                         margin="normal"
+                                        name="addresss"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.addresss}
+                                        error={
+                                            formik.touched.addresss &&
+                                            formik.errors.addresss
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            formik.touched.addresss &&
+                                            formik.errors.addresss
+                                                ? formik.errors
+                                                      .addresss
+                                                : ''
+                                        }
                                     />
-                                    <div className="d-flex justify-content-between w-100">
-                                        <TextField
-                                            id="standard-basic"
-                                            label="First Name"
-                                            required
-                                            margin="normal"
-                                        />
-                                        <TextField
-                                            id="standard-basic"
-                                            label="Last Name"
-                                            required
-                                            margin="normal"
-                                        />
-                                    </div>
+
                                     <MuiPhoneNumber
                                         fullWidth
-                                        name="phone"
+                                        name="numberPhone"
                                         required
                                         data-cy="user-phone"
                                         margin="normal"
                                         defaultCountry={'vn'}
+                                        onChange={(value) =>
+                                            formik.setFieldValue(
+                                                'numberPhone',
+                                                value,
+                                            )
+                                        }
+                                        value={
+                                            formik.values.numberPhone
+                                        }
+                                        error={
+                                            formik.touched
+                                                .numberPhone &&
+                                            formik.errors.numberPhone
+                                                ? true
+                                                : false
+                                        }
+                                        helperText={
+                                            formik.touched
+                                                .numberPhone &&
+                                            formik.errors.numberPhone
+                                                ? formik.errors
+                                                      .numberPhone
+                                                : ''
+                                        }
                                     />
                                 </div>
                             </form>
@@ -101,27 +179,43 @@ const Checkout = () => {
                                 }}
                             >
                                 <div className="d-flex list-product-cart flex-column mt-4 w-100 ">
-                                    <div className="d-flex item-product justify-content-between align-items-center lineBottom">
-                                        <img
-                                            style={{
-                                                height: '46px',
-                                                width: '88px',
-                                            }}
-                                            src={product}
-                                            alt=""
-                                        />
-                                        <div className="info d-flex flex-column align-items-end">
-                                            <Typography variant="subtitle1">
-                                                name product
-                                            </Typography>
-                                            <Typography variant="body1">
-                                                quantity : 1
-                                            </Typography>
-                                            <Typography variant="body1">
-                                                Price : 20$
-                                            </Typography>
+                                    {cart.map((product, index) => (
+                                        <div
+                                            key={index}
+                                            className="d-flex item-product justify-content-between align-items-center lineBottom"
+                                        >
+                                            <img
+                                                style={{
+                                                    height: '46px',
+                                                    width: '88px',
+                                                    objectFit:
+                                                        'cover',
+                                                }}
+                                                src={
+                                                    product?.picturesZero
+                                                }
+                                                alt=""
+                                            />
+                                            <div className="info d-flex flex-column align-items-end">
+                                                <Typography variant="subtitle1">
+                                                    {
+                                                        product?.nameProduct
+                                                    }
+                                                </Typography>
+                                                <Typography variant="body1">
+                                                    quantity :{' '}
+                                                    {
+                                                        product?.quantity
+                                                    }
+                                                </Typography>
+                                                <Typography variant="body1">
+                                                    Price :{' '}
+                                                    {product?.price}{' '}
+                                                    VND
+                                                </Typography>
+                                            </div>
                                         </div>
-                                    </div>
+                                    ))}
                                 </div>
                                 <Grid xs={12}>
                                     <Grid
@@ -133,7 +227,7 @@ const Checkout = () => {
                                             cart Total
                                         </Typography>
                                         <Typography variant="body1">
-                                            200.000 VND
+                                            {total} VND
                                         </Typography>
                                     </Grid>
                                     <Grid
@@ -145,7 +239,7 @@ const Checkout = () => {
                                             Discounts
                                         </Typography>
                                         <Typography variant="body1">
-                                            20.000 VND
+                                            0 VND
                                         </Typography>
                                     </Grid>
                                     <Grid
@@ -174,7 +268,7 @@ const Checkout = () => {
                                             Total
                                         </Typography>
                                         <Typography variant="h5">
-                                            250.000 VND
+                                            {total} VND
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -185,17 +279,13 @@ const Checkout = () => {
                 <Grid
                     xs={12}
                     container
+                    justifyContent="space-between"
                     style={{
                         margin: '20px 0',
                     }}
                 >
-                    <ImagesPayment />
-                    <Grid
-                        xs={4}
-                        item
-                        justifyContent="space-around"
-                        alignItems="center"
-                    >
+                    <ImagesPayment formik={formik} />
+                    <Grid xs={1} item>
                         <Button
                             size="medium"
                             startIcon={
@@ -204,10 +294,107 @@ const Checkout = () => {
                         >
                             back
                         </Button>
-                        <Button size="medium">Payment</Button>
+                    </Grid>
+                </Grid>
+                <Grid
+                    container
+                    alignContent="center"
+                    justifyContent="center"
+                >
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Collapse in={paypal}>
+                            <Paper
+                                style={{ justifyContent: 'center' }}
+                            >
+                                {paypal && (
+                                    <Paypal
+                                        handleSuccess={handleSuccess}
+                                        checkout={checkout}
+                                        cart={cart}
+                                        totalMoney={total}
+                                    />
+                                )}
+                            </Paper>
+                        </Collapse>
                     </Grid>
                 </Grid>
             </div>
+            {isSuccess && <Overlay />}
+            <Motion
+                style={
+                    isSuccess
+                        ? {
+                              opacity: spring(1),
+                              translateY: spring(0, presets.wobbly),
+                          }
+                        : {
+                              opacity: 0,
+                              translateY: 500,
+                          }
+                }
+            >
+                {(interpolatedStyles) => (
+                    <div
+                        id="Paypal"
+                        style={{
+                            transform: `translateY(${interpolatedStyles.translateY}px)`,
+                            opacity: interpolatedStyles.opacity,
+                        }}
+                    >
+                        <div className="Paypal-title">
+                            <h1>Payment successful</h1>
+                        </div>
+                        <div className="Paypal-content">
+                            <div className="content-left">
+                                <div className="span-left">
+                                    <span>payment type</span>
+                                </div>
+                                <div className="span-left">
+                                    <span>Bank</span>
+                                </div>
+                                <div className="span-left">
+                                    <span>Mobile</span>
+                                </div>
+                                <div className="span-left">
+                                    <span>Email</span>
+                                </div>
+                                <div className="span-left">
+                                    <span>Amount paid</span>
+                                </div>
+                            </div>
+                            <div className="content-right">
+                                <div className="span-right">
+                                    <span>Net banking</span>
+                                </div>
+                                <div className="span-right">
+                                    <span>Bank</span>
+                                </div>
+                                <div className="span-right">
+                                    <span>Mobile</span>
+                                </div>
+                                <div className="span-right">
+                                    <span>Email</span>
+                                </div>
+                                <div className="span-right">
+                                    <span>Amount paid</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="Paypal-button">
+                            <div className="button-print">
+                                <button onClick={handleDoneOrder}>
+                                    PRINT
+                                </button>
+                            </div>
+                            <div className="button-close">
+                                <button onClick={handleDoneOrder}>
+                                    CLOSE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </Motion>
         </>
     )
 }

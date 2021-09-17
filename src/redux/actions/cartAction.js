@@ -19,3 +19,8 @@ export const updateItemCart = (id, quantity) => {
         quantity,
     }
 }
+export const clearCart = () => {
+    return {
+        type: types.CLEAR_CART,
+    }
+}

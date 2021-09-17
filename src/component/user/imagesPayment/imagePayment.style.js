@@ -6,6 +6,7 @@ const styles = makeStyles(() => ({
         width: 64,
         objectFit: 'cover',
         margin: '0 20px',
+        cursor: 'pointer',
     },
 }))
 export default styles

@@ -43,3 +43,21 @@ export const deleteProduct = (id) => {
         id,
     }
 }
+export const searchProduct = (word) => {
+    return {
+        type: types.SEARCH_PRODUCTS,
+        word,
+    }
+}
+export const getSearchProduct = (products) => {
+    return {
+        type: types.GET_SEARCH_PRODUCTS,
+        products,
+    }
+}
+
+export const clearSearchProduct = () => {
+    return {
+        type: types.CLEAR_SEARCH_PRODUCTS,
+    }
+}

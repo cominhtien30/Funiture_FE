@@ -103,8 +103,8 @@ function FormAdd({
                         fullWidth
                         id="standard-basic"
                         label="Name"
-                        name="name"
                         margin="normal"
+                        name="name"
                         onChange={formik.handleChange}
                         value={formik.values.name}
                         error={

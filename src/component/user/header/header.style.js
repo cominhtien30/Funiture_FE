@@ -50,6 +50,7 @@ const styles = makeStyles((theme) => ({
                     '& .input_search': {
                         position: 'relative',
                         color: theme.palette.primary.bolid,
+                        zIndex: 99,
                         width: '100%',
                         borderRadius: '5px',
                         border: `1px solid ${theme.palette.primary.line}`,
@@ -72,7 +73,7 @@ const styles = makeStyles((theme) => ({
                         '& .result_search': {
                             position: 'absolute',
                             top: '100%',
-                            zIndex: 9999999,
+                            zIndex: 9999999999,
                             width: '100%',
                             backgroundColor: 'white',
                             transition: 'opacity 0.5s',

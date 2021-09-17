@@ -1,29 +1,29 @@
 // @flow
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './detail.style'
 import { withTheme } from '@material-ui/core/styles'
 import NavPages from '../../component/user/navPages/navPage'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import product from '../../assets/images/products/product.jpg'
-import product1 from '../../assets/images/slider/slider1.jpg'
-import product2 from '../../assets/images/slider/slider2.jpg'
-import product3 from '../../assets/images/slider/slider3.jpg'
 import Thumbail from '../../component/user/detail/thumbail/listThumbail'
 import { Button, Typography, Grid } from '@material-ui/core'
 import ColorFilter from '../../component/user/products/filter/colors/colors'
 import CarouselDetail from '../../component/user/detail/carousel'
 import FeatureProducts from '../../component/user/featureProducts/featureProduct'
+import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addCart } from '../../redux/actions/cartAction'
 
-const Detail = (props) => {
-    const listImg = [
-        product,
-        product1,
-        product2,
-        product3,
-        product3,
-        product3,
-        product3,
-        product3,
+const Detail = ({ product, requestDetailProduct, theme }) => {
+    let { id } = useParams()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        requestDetailProduct(id)
+    }, [])
+    let listImg = [
+        product?.picturesZero,
+        product?.picturesZero,
+        product?.picturesZero,
+        product?.picturesZero,
     ]
     const classes = styles()
 
@@ -73,7 +73,7 @@ const Detail = (props) => {
                                 className="m-3"
                                 style={{
                                     fontSize: '13px',
-                                    color: props.theme.palette.primary
+                                    color: theme.palette.primary
                                         .bolid,
                                 }}
                             >
@@ -96,21 +96,33 @@ const Detail = (props) => {
                         <div className="detail-info d-flex flex-column justify-content-between h-100">
                             <div className="d-flex info-price justify-content-center ">
                                 <span className="text-price ">
-                                    250.000 VND
+                                    {product?.price}
                                 </span>
                             </div>
                             <div className="d-flex info-product  flex-column justify-content-start align-items-start mt-3 mb-3">
                                 <div className="info info-category">
-                                    Category : <b>Study</b>{' '}
+                                    Category :{' '}
+                                    <b>
+                                        {' '}
+                                        {
+                                            product?.flowTypeProducts
+                                                ?.nameTypeProduct
+                                        }
+                                    </b>{' '}
                                 </div>
                                 <div className="info info-id">
-                                    Product-id : <b>1ABC2</b>{' '}
+                                    Product-id : <b>{product?.id}</b>{' '}
                                 </div>
                             </div>
 
                             <div className="d-flex info-product flex-column justify-content-start align-items-start mt-3 mb-3">
                                 <Grid item xs={8}>
-                                    <ColorFilter />
+                                    <ColorFilter
+                                        color={
+                                            product?.colorFlowProducts
+                                                ?.colorCode
+                                        }
+                                    />
                                 </Grid>
                             </div>
                             <div className="d-flex btn-add-cart justify-content-between  mt-3">
@@ -118,6 +130,11 @@ const Detail = (props) => {
                                     classes={{
                                         root: classes.btnAddCart,
                                     }}
+                                    onClick={() =>
+                                        dispatch(
+                                            addCart({ ...product }),
+                                        )
+                                    }
                                 >
                                     Add To Cart
                                 </Button>

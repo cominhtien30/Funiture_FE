@@ -6,7 +6,7 @@ const styles = makeStyles((theme) => ({
             ' rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
         paddingTop: '0 !important',
         paddingBottom: '0 !important',
-        zIndex: theme.zIndex.snackbar,
+        zIndex: 10,
         backgroundColor: 'white',
         '& a': {
             color: 'black',

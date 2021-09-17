@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Icon from '@material-ui/core/Icon'
 import { useNavigate } from 'react-router-dom'
 import useTheme from '@material-ui/core/styles/useTheme'
+import { useLocation } from 'react-router-dom'
 
 const items = [
     {
         label: 'Dashboard',
         component: 'dashboard',
-        patch: '',
+        patch: 'dashboard',
     },
     {
         label: 'Products',
@@ -22,29 +23,31 @@ const items = [
         component: 'class',
         patch: 'categorys',
     },
+
     {
-        label: 'Orders',
-        component: 'shopping_cart',
-        patch: '',
+        label: 'Color',
+        component: 'format_paint',
+        patch: 'colors',
     },
     {
-        label: 'Customers',
-        component: 'people',
-        patch: '',
-    },
-    {
-        label: 'Reports',
-        component: ' report',
-        patch: '',
+        label: 'Order',
+        component: 'shopping_basket_icon ',
+        patch: 'orders',
     },
 ]
 export const MainListItems = () => {
     let navigate = useNavigate()
-    const [value, setValue] = useState(0)
-    const handleChange = (index, patch) => {
+    let location = useLocation()
+    const [nameIcon, setNameIcon] = useState('')
+    //location.search.split('/')[2]
+    const handleChange = (patch) => {
         navigate(patch)
-        setValue(index)
     }
+    useEffect(() => {
+        setNameIcon(location.pathname.split('/')[2])
+    }, [location.pathname])
+
+    console.log(nameIcon, 'nameIcon')
     return (
         <div>
             {items.map((item, index) => {
@@ -52,15 +55,13 @@ export const MainListItems = () => {
                     <ListItem
                         button
                         key={index}
-                        onClick={() =>
-                            handleChange(index, item.patch)
-                        }
+                        onClick={() => handleChange(item.patch)}
                     >
                         <ListItemIcon>
                             <Icon
                                 style={{
                                     color:
-                                        index == value &&
+                                        item.patch == nameIcon &&
                                         useTheme().palette.primary
                                             .main,
                                 }}

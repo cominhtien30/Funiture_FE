@@ -13,7 +13,6 @@ import Footer from './footer'
 import Overlay from '../../../commons/overlay/overlay'
 
 const CartFixed = ({ cart, deleteItemCart, updateItemCart }) => {
-    console.log(cart, 'cart')
     // state set animation
     const [open, setOpen] = useState(false)
     const [animationCount, setAnimationCount] = useState(false)
@@ -62,7 +61,7 @@ const CartFixed = ({ cart, deleteItemCart, updateItemCart }) => {
                                     key={index}
                                     id={product.id}
                                     nameProduct={product.nameProduct}
-                                    pictures={product.pictures}
+                                    pictures={product.picturesZero}
                                     price={
                                         product.price *
                                         product.quantity

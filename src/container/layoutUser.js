@@ -6,6 +6,7 @@ import LayoutUser from '../pages/userLayout'
 import * as actionSign from '../redux/actions/signAction'
 import * as actionCart from '../redux/actions/cartAction'
 import * as actionAlert from '../redux/actions/alertAction'
+import * as actionProduct from '../redux/actions/productsAction'
 export const layoutUserContainer = ({
     openSignIn,
     handleOpenSignIn,
@@ -14,6 +15,8 @@ export const layoutUserContainer = ({
     cart,
     deleteItemCart,
     updateItemCart,
+    searchProduct,
+    requestSearch,
 }) => {
     //console.log(handleOpen(), "handleOpen")
     return (
@@ -25,6 +28,8 @@ export const layoutUserContainer = ({
             handleOpenSignIn={handleOpenSignIn}
             openAlert={openAlert}
             alertChange={alertChange}
+            searchProduct={searchProduct}
+            requestSearch={requestSearch}
         />
     )
 }
@@ -34,6 +39,7 @@ const mapStateToProps = (state) => ({
     openAlert: state.alert,
     // cart
     cart: state.cart,
+    searchProduct: state.search,
 })
 //check type props
 layoutUserContainer.propTypes = {
@@ -52,7 +58,17 @@ layoutUserContainer.propTypes = {
             nameProduct: PropTypes.string,
             description: PropTypes.string,
             price: PropTypes.number,
-            pictures: PropTypes.string,
+            picturesZero: PropTypes.string,
+            color: PropTypes.string,
+        }),
+    ),
+    searchProduct: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            nameProduct: PropTypes.string,
+            description: PropTypes.string,
+            price: PropTypes.number,
+            picturesZero: PropTypes.string,
             color: PropTypes.string,
         }),
     ),
@@ -66,6 +82,8 @@ const mapDispatchToProps = {
     // update
     updateItemCart: (id, quantity) =>
         actionCart.updateItemCart(id, quantity),
+    //search
+    requestSearch: (word) => actionProduct.searchProduct(word),
 }
 export default connect(
     mapStateToProps,

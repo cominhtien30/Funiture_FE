@@ -29,6 +29,8 @@ function App({
     cart,
     deleteItemCart,
     updateItemCart,
+    searchProduct,
+    requestSearch,
 }) {
     const [openSignup, setOpenSignUp] = useState(false)
     // khi openSignIn openSignup thay đổi làm component reRender
@@ -86,7 +88,11 @@ function App({
                 {/* css global*/}
                 {/* <GlobalCss /> */}
                 {/* -------------------------- */}
-                <Header handleOpenSignIn={handleOpenSignIn} />
+                <Header
+                    handleOpenSignIn={handleOpenSignIn}
+                    searchProduct={searchProduct}
+                    requestSearch={requestSearch}
+                />
                 <div className="container-fluid">
                     <Outlet />
                 </div>

@@ -188,11 +188,11 @@ const DataCart = ({
         id: item.id,
         nameProduct: item.nameProduct,
         price: item.price,
-        pictures: item.pictures,
+        pictures: item.picturesZero,
         quantity: item.quantity,
         color: item.color,
     }))
-
+    console.log(cart, 'cart')
     return (
         <>
             <div

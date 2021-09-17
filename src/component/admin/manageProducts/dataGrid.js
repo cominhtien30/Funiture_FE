@@ -167,13 +167,13 @@ const DataGridProduct = ({
         },
     ]
 
-    const rows = products.getAllProduct.map((item, index) => ({
+    const rows = products.getAllProduct.map((item) => ({
         id: item.id,
         name: item?.nameProduct,
         description: item?.description,
         price: item?.price,
-        image: item?.pictures,
-        quantity: 30 + index,
+        image: item?.picturesZero,
+        quantity: item.quantity,
         color: item?.color,
         nameCategory: item?.flowTypeProducts?.nameTypeProduct,
     }))

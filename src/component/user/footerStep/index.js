@@ -9,9 +9,12 @@ import {
     Grid,
     TextField,
 } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom'
 
 const FooterStep = () => {
     const classes = styles()
+    let navigate = useNavigate()
+
     // styles row image
 
     return (
@@ -78,7 +81,9 @@ const FooterStep = () => {
                     Continues Shopping
                 </Typography>
 
-                <Button>CHECKOUT</Button>
+                <Button onClick={() => navigate('/checkout')}>
+                    CHECKOUT
+                </Button>
             </Grid>
         </>
     )

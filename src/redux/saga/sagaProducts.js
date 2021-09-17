@@ -125,10 +125,27 @@ function* deleteProductWorker(action) {
         console.log(error)
     }
 }
+function* searchProductWorker(action) {
+    const { word } = action
+    try {
+        const searchProduct = yield api.get(
+            `${url}/get-search?search=${word}`,
+        )
+        if (searchProduct) {
+            yield put({
+                type: 'GET_SEARCH_PRODUCTS',
+                products: searchProduct.data,
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 export default function* productsWatcher() {
     // action data
     yield takeLatest('REQUEST_PRODUCTS', getProductsWorker)
     yield takeLatest('REQUEST_DETAIL_PRODUCT', getDetailProductWorker)
+    yield takeLatest('SEARCH_PRODUCTS', searchProductWorker)
     yield takeLatest('ADD_PRODUCTS', addProductsWorker)
     yield takeLatest('UPDATE_PRODUCT', updateProductWorker)
     yield takeLatest('DELETE_PRODUCT', deleteProductWorker)

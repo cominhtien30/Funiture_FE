@@ -68,6 +68,17 @@ module.exports = {
                 test: /\.css$/,
             },
             {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    'style-loader',
+                    // Translates CSS into CommonJS
+                    'css-loader',
+                    // Compiles Sass to CSS
+                    'sass-loader',
+                ],
+            },
+            {
                 loader: 'file-loader',
                 test: /\.(png|jpe?g|gif|woff2|eot|wav|mp3|ico|wav|ttf|svg)$/i,
                 options: {

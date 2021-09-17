@@ -15,12 +15,17 @@ import {
     InputBase,
 } from '@material-ui/core'
 // service
-import FeatureProduct from '../../component/user/featureProducts/featureProduct'
 import DataGridOrder from '../../component/user/profile/dataGrid'
 import { Element } from 'react-scroll'
 import { validateEmail } from '../../utils/validation'
 
-const Profile = ({ theme, requestProfile, updateProfile }) => {
+const Profile = ({
+    theme,
+    requestProfile,
+    updateProfile,
+    bill,
+    requestBill,
+}) => {
     //kiểm tra mail ,mặc định là true vì khi register đã bắt buộc nhập mail
     const isEmail = useRef(true)
     //toggole swich edit
@@ -40,6 +45,7 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
             //kiem tra login
             //sau đó truyền vào cái tài khoản cần update, và 1 funtion khi thành công thì set State vào
             requestProfile(authService.getAccount(), onGetSuccess)
+            requestBill()
         }
     }, [requestProfile])
     //  requestProfile(authService.getAccount())
@@ -267,11 +273,10 @@ const Profile = ({ theme, requestProfile, updateProfile }) => {
                             Order
                         </Typography>
                         <Element name="scroll-to-order">
-                            <DataGridOrder />
+                            <DataGridOrder bill={bill} />
                         </Element>
                     </Grid>
                 </Grid>
-                <FeatureProduct />
             </div>
         </>
     )

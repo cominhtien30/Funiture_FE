@@ -113,6 +113,23 @@ export const validationUpdateProduct = Yup.object({
         .required('productFlowTypeID is required')
         .typeError('you must specify a number'),
 })
+export const validationCheckout = Yup.object({
+    zipcode: Yup.string('Enter your zipcode ')
+        .required('zipcode is required')
+        .min(5, 'zipcode should be of minimum 5 characters length'),
+    addresss: Yup.string('Enter your addresss ')
+        .required('addresss is required')
+        .min(
+            10,
+            'addresss should be of minimum 10 characters length',
+        ),
+    numberPhone: Yup.string('Enter your numberPhone ')
+        .required('numberPhone is required')
+        .min(
+            11,
+            'numberPhone should be of minimum 11 characters length',
+        ),
+})
 export function validateEmail(email) {
     const re =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

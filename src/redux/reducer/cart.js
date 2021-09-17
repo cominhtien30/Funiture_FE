@@ -36,6 +36,9 @@ var myReducer = (state = initialState, action) => {
                 )
             }
             return [...state]
+        case 'CLEAR_CART':
+            localStorage.setItem('cart', JSON.stringify([]))
+            return []
         default:
             return state
     }

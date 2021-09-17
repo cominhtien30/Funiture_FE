@@ -57,6 +57,23 @@ function* updateProfileWorker(action) {
         })
     }
 }
+function* getBillWorker() {
+    try {
+        //  delay loading
+        const getBill = yield api(
+            'bill/get-order',
+            authService.headerToken(),
+        )
+        if (getBill) {
+            yield put({
+                type: 'GET_BILL',
+                bills: getBill.data?.data,
+            })
+        }
+    } catch (error) {
+        console.log(error, 'error')
+    }
+}
 
 //call api update
 function callUpdateProfile(action) {
@@ -73,4 +90,5 @@ export default function* userWatcher() {
     //action data
     yield takeEvery('REQUEST_PROFILE', getProfileWorker)
     yield takeEvery('UPDATE_PROFILE', updateProfileWorker)
+    yield takeEvery('REQUEST_BILL', getBillWorker)
 }

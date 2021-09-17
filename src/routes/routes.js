@@ -8,9 +8,9 @@ import LayoutAdmin from '../container/layoutAdmin'
 import Home from '../container/userHome'
 import Products from '../container/userProducts'
 import Cart from '../container/userCart'
-import Checkout from '../screens/checkout/checkout'
+import Checkout from '../container/userCheckout'
 import Profile from '../container/userProfile'
-import Detail from '../screens/detail/detail'
+import Detail from '../container/userDetailProduct'
 import WishList from '../screens/wishList/wishList'
 import Error from '../screens/user404'
 // admin
@@ -18,6 +18,7 @@ import Dashboard from '../screens/adminDashboard/adminDashboard'
 import ManageProducts from '../container/adminProduct'
 import ManageCategorys from '../container/adminCategory'
 import ManageColors from '../screens/adminColors'
+import ManageOrders from '../container/adminOrder'
 
 // AuthService
 import AuthService from '../utils/AuthService'
@@ -46,7 +47,7 @@ export default function Router() {
                     element: <Products />,
                 },
                 {
-                    path: 'detail',
+                    path: 'product/:id',
                     element: <Detail />,
                 },
                 {
@@ -111,6 +112,10 @@ export default function Router() {
                 {
                     path: 'colors',
                     element: <ManageColors />,
+                },
+                {
+                    path: 'orders',
+                    element: <ManageOrders />,
                 },
             ],
         },

@@ -38,7 +38,9 @@ const Products = ({ products, addToCart }) => {
                                             description={
                                                 item.description
                                             }
-                                            pictures={item.pictures}
+                                            pictures={
+                                                item?.picturesZero
+                                            }
                                         />
                                     </Grid>
                                 )

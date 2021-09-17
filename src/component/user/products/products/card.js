@@ -13,6 +13,7 @@ import {
     Button,
     Typography,
 } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom'
 
 const Products = ({
     id,
@@ -22,7 +23,10 @@ const Products = ({
     description,
     pictures,
     addToCart,
+    action,
 }) => {
+    const navigate = useNavigate()
+
     const [animation, setAnimation] = useState(false)
     const classes = styles({ animation })
     const onClickhandle = () => {
@@ -35,16 +39,18 @@ const Products = ({
                 price,
                 nameProduct,
                 description,
-                pictures,
+                picturesZero: pictures,
             })
         }, 1000)
     }
     return (
         <>
-            {animation ? <Overlay /> : ''}
+            {action ? '' : animation ? <Overlay /> : ''}
             <div className={classes.card}>
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea
+                        onClick={() => navigate(`/product/${id}`)}
+                    >
                         <CardMedia
                             component="img"
                             alt="Contemplative Reptile"

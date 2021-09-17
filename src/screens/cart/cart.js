@@ -4,12 +4,13 @@ import styles from './cart.style'
 import { withTheme } from '@material-ui/core/styles'
 import FooterStep from '../../component/user/footerStep'
 import { Button, Typography, Grid } from '@material-ui/core'
-
+import { useNavigate } from 'react-router-dom'
 import ProcessStep from '../../component/user/processStep'
 import DataGridCart from '../../component/user/cart/dataGrid'
 import ImagesPayment from '../../component/user/imagesPayment'
 
 const Cart = ({ cart, deleteItemCart, updateItemCart }) => {
+    let navigate = useNavigate()
     const classes = styles()
     // styles row image
 
@@ -31,7 +32,9 @@ const Cart = ({ cart, deleteItemCart, updateItemCart }) => {
                         Continues Shopping
                     </Typography>
                     <div className="p-3"></div>
-                    <Button>CHECKOUT</Button>
+                    <Button onClick={() => navigate('/checkout')}>
+                        CHECKOUT
+                    </Button>
                 </div>
                 <DataGridCart
                     cart={cart}

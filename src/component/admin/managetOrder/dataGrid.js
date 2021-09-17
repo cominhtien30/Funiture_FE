@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withTheme } from '@material-ui/core/styles'
 import { LinearProgress } from '@material-ui/core'
 import { DataGrid, GridOverlay } from '@material-ui/data-grid'
@@ -8,12 +8,27 @@ import none from '../../../assets/images/logo/none.png'
 import Grid from '@material-ui/core/Grid'
 import Modal from '@material-ui/core/Modal'
 import Paper from '@material-ui/core/Paper'
+import api from '../../../utils/api'
+import authService from '../../../utils/AuthService'
+import { loadingChange } from '../../../redux/actions/loadingAction'
+import { useDispatch } from 'react-redux'
+
 import {
     Typography,
     // TextField
 } from '@material-ui/core'
 
-const DataCart = ({ bill, theme }) => {
+const DataCart = ({ theme }) => {
+    const dispatch = useDispatch()
+
+    //bill,
+    const [bill, setBill] = useState([])
+    useEffect(() => {
+        dispatch(loadingChange(true))
+        api.get('bill/get-orders', authService.headerToken())
+            .then((res) => setBill(res.data.data))
+            .then(() => dispatch(loadingChange(false)))
+    }, [])
     const classes = styles()
     const [openModal, setOpenModal] = React.useState({
         open: false,
